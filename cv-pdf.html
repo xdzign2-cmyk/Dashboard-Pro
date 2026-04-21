@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erick Torres — CV</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --neon: #00ff88;
+            --neon-cyan: #00d2ff;
+            --neon-purple: #b06aff;
+            --neon-pink: #ff2a7a;
+            --neon-blue: #4f8aff;
+            --bg: #07080f;
+            --bg-card: #0d0e1a;
+            --border: rgba(255,255,255,0.08);
+            --gray: rgba(255,255,255,0.45);
+            --white: #f0f4ff;
+        }
+
+        html, body {
+            background: var(--bg);
+            color: var(--white);
+            font-family: 'Outfit', sans-serif;
+            font-size: 10pt;
+            line-height: 1.5;
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+        }
+
+        /* ===== PAGE WRAPPER ===== */
+        .page {
+            width: 100%;
+            padding: 14mm 14mm 12mm 14mm;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: relative;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 20px;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+            margin-bottom: 4px;
+        }
+
+        .name-block h1 {
+            font-family: 'Space Mono', monospace;
+            font-size: 28pt;
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -1px;
+            background: linear-gradient(90deg, var(--neon) 0%, var(--neon-cyan) 60%, var(--neon-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .name-block .role {
+            font-family: 'Space Mono', monospace;
+            font-size: 7pt;
+            color: var(--neon-cyan);
+            letter-spacing: 2px;
+            margin-top: 4px;
+        }
+
+        .badge-row {
+            display: flex;
+            gap: 6px;
+            margin-top: 6px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Space Mono', monospace;
+            font-size: 6.5pt;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-red { background: rgba(207,9,22,0.15); border: 1px solid rgba(207,9,22,0.4); color: #e8e8e8; }
+        .badge-cyan { background: rgba(0,210,255,0.08); border: 1px solid rgba(0,210,255,0.3); color: var(--neon-cyan); }
+        .badge-green { background: rgba(0,255,136,0.08); border: 1px solid rgba(0,255,136,0.3); color: var(--neon); }
+
+        .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--neon); box-shadow: 0 0 5px var(--neon); flex-shrink: 0; }
+
+        .stats-row {
+            display: flex;
+            gap: 16px;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 6px 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+        }
+
+        .stat-num {
+            font-family: 'Space Mono', monospace;
+            font-size: 14pt;
+            font-weight: 700;
+            display: block;
+        }
+
+        .stat-lbl {
+            font-family: 'Space Mono', monospace;
+            font-size: 5.5pt;
+            color: var(--gray);
+            letter-spacing: 1px;
+        }
+
+        .stat-green { color: var(--neon); }
+        .stat-purple { color: var(--neon-purple); }
+        .stat-cyan { color: var(--neon-cyan); }
+
+        /* ===== DIVIDER ===== */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+            margin: 4px 0;
+            opacity: 0.3;
+        }
+
+        /* ===== SECTION TITLE ===== */
+        .sec-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 6pt;
+            letter-spacing: 2px;
+            color: var(--gray);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            padding-left: 2px;
+            border-left: 2px solid var(--neon-cyan);
+            padding-left: 6px;
+        }
+
+        /* ===== DESCRIPTION ===== */
+        .description {
+            font-size: 9pt;
+            color: rgba(255,255,255,0.65);
+            line-height: 1.6;
+            max-width: 90%;
+        }
+
+        /* ===== GRID LAYOUT ===== */
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+
+        /* ===== CARD ===== */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 12px;
+        }
+
+        /* ===== SKILL METERS ===== */
+        .meter-group { margin-bottom: 7px; }
+        .meter-header { display: flex; justify-content: space-between; font-family: 'Space Mono', monospace; font-size: 6.5pt; margin-bottom: 3px; }
+        .meter-bg { height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
+        .meter-fill { height: 100%; border-radius: 2px; }
+        .fill-green { background: linear-gradient(90deg, #00cc6a, #00ff88); width: 95%; }
+        .fill-purple { background: linear-gradient(90deg, #7028c8, #b06aff); width: 90%; }
+        .fill-cyan { background: linear-gradient(90deg, #0099cc, #00d2ff); width: 85%; }
+
+        /* ===== SKILL PILLS ===== */
+        .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+        .skill-pill {
+            background: rgba(176,106,255,0.05);
+            border: 1px solid rgba(176,106,255,0.2);
+            border-radius: 5px;
+            padding: 4px 8px;
+            font-family: 'Space Mono', monospace;
+            font-size: 6.5pt;
+            color: rgba(255,255,255,0.75);
+        }
+
+        /* ===== TIMELINE ===== */
+        .timeline { display: flex; flex-direction: column; gap: 8px; position: relative; padding-left: 14px; }
+        .timeline::before { content: ''; position: absolute; left: 3px; top: 4px; bottom: 4px; width: 1px; background: linear-gradient(to bottom, var(--neon-cyan), var(--neon-purple)); opacity: 0.4; }
+
+        .tl-node { position: relative; }
+        .tl-dot { position: absolute; left: -14px; top: 4px; width: 7px; height: 7px; border-radius: 50%; border: 1px solid var(--neon-cyan); background: var(--bg); }
+        .tl-tag { font-family: 'Space Mono', monospace; font-size: 6pt; letter-spacing: 1px; }
+        .tag-cyan { color: var(--neon-cyan); }
+        .tag-purple { color: var(--neon-purple); }
+        .tag-blue { color: var(--neon-blue); }
+        .tag-green { color: #00ffaa; }
+        .tl-title { font-weight: 600; font-size: 8.5pt; color: var(--white); margin-top: 1px; }
+        .tl-desc { font-size: 7.5pt; color: var(--gray); margin-top: 1px; line-height: 1.4; }
+
+        /* ===== TECH STACK ===== */
+        .tech-item { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+        .tech-icon { width: 22px; height: 22px; border-radius: 4px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'Outfit', sans-serif; font-size: 6.5pt; font-weight: 700; flex-shrink: 0; }
+        .tech-name { font-size: 7.5pt; font-weight: 500; }
+        .tech-level { font-family: 'Space Mono', monospace; font-size: 5.5pt; color: var(--gray); }
+        .tech-bar-bg { height: 3px; background: rgba(255,255,255,0.07); border-radius: 2px; margin-top: 2px; }
+        .tech-bar-fill { height: 100%; border-radius: 2px; }
+
+        /* ===== CAPABILITIES ===== */
+        .cap-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+        .cap-label { font-family: 'Space Mono', monospace; font-size: 7pt; color: var(--white); }
+        .cap-on { font-family: 'Space Mono', monospace; font-size: 6pt; color: var(--neon); letter-spacing: 1px; }
+
+        /* ===== PROJECTS ===== */
+        .proj-item { padding: 8px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 6px; margin-bottom: 6px; }
+        .proj-title { font-weight: 600; font-size: 8.5pt; color: var(--white); }
+        .proj-sub { font-family: 'Space Mono', monospace; font-size: 6pt; color: var(--gray); margin-top: 1px; }
+        .proj-desc { font-size: 7.5pt; color: rgba(255,255,255,0.6); margin-top: 4px; line-height: 1.4; }
+        .tech-tags { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 5px; }
+        .tech-tag { font-family: 'Space Mono', monospace; font-size: 5.5pt; padding: 1px 5px; border-radius: 3px; background: rgba(0,210,255,0.08); border: 1px solid rgba(0,210,255,0.2); color: var(--neon-cyan); }
+
+        /* ===== CONTACT ===== */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+        .contact-item { display: flex; align-items: center; gap: 6px; }
+        .contact-label { font-family: 'Space Mono', monospace; font-size: 6pt; color: var(--neon); }
+        .contact-val { font-size: 7.5pt; color: rgba(255,255,255,0.7); }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            font-family: 'Space Mono', monospace;
+            font-size: 6pt;
+            color: rgba(255,255,255,0.15);
+            margin-top: 6px;
+            padding-top: 8px;
+            border-top: 1px solid var(--border);
+            letter-spacing: 2px;
+        }
+
+        /* ===== PRINT RULES ===== */
+        @media print {
+            html, body {
+                background: #07080f !important;
+                color: var(--white) !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                width: 210mm;
+            }
+            .page { padding: 10mm 12mm; }
+        }
+
+        /* ===== PRINT BUTTON ===== */
+        .print-bar {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 999;
+        }
+
+        .print-btn {
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon));
+            color: #000;
+            font-family: 'Space Mono', monospace;
+            font-size: 8pt;
+            font-weight: 700;
+            letter-spacing: 1px;
+            padding: 8px 18px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(0,210,255,0.4);
+        }
+
+        @media print { .print-bar { display: none !important; } }
+    </style>
+</head>
+<body>
+
+<div class="print-bar">
+    <button class="print-btn" onclick="window.print()">⬇ DESCARGAR PDF</button>
+</div>
+
+<div class="page">
+
+    <!-- ══════════════ HEADER ══════════════ -->
+    <header class="header">
+        <div class="name-block">
+            <h1>ERICK TORRES</h1>
+            <p class="role">> GESTOR DE OPERACIONES TECH &amp; ESPECIALISTA VISUAL</p>
+            <div class="badge-row">
+                <span class="badge badge-red">🇻🇪 TALENTO VENEZOLANO</span>
+                <span class="badge badge-cyan">📍 CARACAS, VE · 33 AÑOS</span>
+                <span class="badge badge-green"><span class="status-dot"></span> DISPONIBLE</span>
+            </div>
+            <div class="badge-row" style="margin-top:5px;">
+                <a href="https://www.xdzign.pro" target="_blank" style="text-decoration:none;">
+                    <span class="badge" style="background:rgba(176,106,255,0.12); border:1px solid rgba(176,106,255,0.45); color:var(--neon-purple); gap:5px; padding:3px 10px;">
+                        <span style="font-size:7pt;">🌐</span>
+                        <span style="font-size:6.5pt;">PORTAFOLIO EN VIVO:</span>
+                        <span style="font-size:6.5pt; font-weight:700; letter-spacing:0.5px;">www.xdzign.pro</span>
+                    </span>
+                </a>
+            </div>
+        </div>
+        <div class="stats-row">
+            <div class="stat-box">
+                <span class="stat-num stat-green">14+</span>
+                <span class="stat-lbl">AÑOS EXP.</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-num stat-purple">∞</span>
+                <span class="stat-lbl">APRENDIZAJE</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-num stat-cyan">HÍB.</span>
+                <span class="stat-lbl">PERFIL</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Descripción -->
+    <p class="description">
+        Arquitecto de sistemas digitales. Creador de experiencias visuales inmersivas, optimización de procesos operativos e implementador de alto impacto. Profesional híbrido con más de 14 años unificando diseño gráfico, soporte IT, automatización de flujos y gestión operativa en entornos digitales modernos.
+    </p>
+
+    <div class="section-divider"></div>
+
+    <!-- ══════════════ FILA 1: SKILLS + TIMELINE ══════════════ -->
+    <div class="two-col">
+
+        <!-- SKILL METERS + MATRIX -->
+        <div style="display:flex; flex-direction:column; gap:8px;">
+
+            <div class="card">
+                <p class="sec-label">NIVELES DE COMPETENCIA</p>
+                <div class="meter-group">
+                    <div class="meter-header">
+                        <span>DISEÑO VISUAL</span>
+                        <span style="color:var(--neon)">95%</span>
+                    </div>
+                    <div class="meter-bg"><div class="meter-fill fill-green"></div></div>
+                </div>
+                <div class="meter-group">
+                    <div class="meter-header">
+                        <span>OPERACIONES</span>
+                        <span style="color:var(--neon-purple)">90%</span>
+                    </div>
+                    <div class="meter-bg"><div class="meter-fill fill-purple"></div></div>
+                </div>
+                <div class="meter-group">
+                    <div class="meter-header">
+                        <span>INTEGRACIÓN IA</span>
+                        <span style="color:var(--neon-cyan)">85%</span>
+                    </div>
+                    <div class="meter-bg"><div class="meter-fill fill-cyan"></div></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <p class="sec-label">STACK DE HABILIDADES</p>
+                <div class="skills-grid">
+                    <div class="skill-pill">Antigravity AI</div>
+                    <div class="skill-pill">Supabase</div>
+                    <div class="skill-pill">Diseño UI/UX</div>
+                    <div class="skill-pill">Automatización</div>
+                    <div class="skill-pill">Innovación IA</div>
+                    <div class="skill-pill">Prod. Audiovisual</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- TIMELINE -->
+        <div class="card">
+            <p class="sec-label">TRAYECTORIA PROFESIONAL</p>
+            <div class="timeline">
+
+                <div class="tl-node">
+                    <div class="tl-dot"></div>
+                    <span class="tl-tag tag-cyan">ACTUAL</span>
+                    <p class="tl-title">Especialista Visual Senior</p>
+                    <p class="tl-desc">Implementando sistemas y visuales estéticos de alto impacto para clientes y proyectos propios.</p>
+                </div>
+
+                <div class="tl-node">
+                    <div class="tl-dot"></div>
+                    <span class="tl-tag tag-purple">FREELANCER</span>
+                    <p class="tl-title">Líder de Operaciones Digitales</p>
+                    <p class="tl-desc">Gestión operativa independiente e innovación estructurada de procesos para negocios.</p>
+                </div>
+
+                <div class="tl-node">
+                    <div class="tl-dot"></div>
+                    <span class="tl-tag tag-blue">DISEÑO & TI</span>
+                    <p class="tl-title">Diseñador Gráfico & Técnico</p>
+                    <p class="tl-desc">Soporte computacional, branding corporativo y producción audiovisual.</p>
+                </div>
+
+                <div class="tl-node">
+                    <div class="tl-dot"></div>
+                    <span class="tl-tag tag-green">AUTOMATION</span>
+                    <p class="tl-title">Experto en AutoHotkey</p>
+                    <p class="tl-desc">Creación de macros complejos y scripts para automatización de flujos administrativos y optimización extrema de tiempos en Windows.</p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ══════════════ FILA 2: CREATIVE SUITE + CAPABILITIES ══════════════ -->
+    <div class="two-col">
+
+        <!-- CREATIVE SUITE / IT -->
+        <div class="card">
+            <p class="sec-label">HERRAMIENTAS &amp; SOFTWARE</p>
+            <p style="font-size:7.5pt; color:var(--gray); margin-bottom:8px; line-height:1.5;">
+                Desarrollo gráfico comercial enfocado en conversión, edición de video ágil publicitaria y amplio conocimiento en soporte y armado de computadoras.
+            </p>
+
+            <div class="tech-item">
+                <div class="tech-icon" style="color:#00c8ff; border-color:rgba(0,200,255,0.3);">Ps</div>
+                <div style="flex:1;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span class="tech-name">Photoshop</span>
+                        <span class="tech-level">Alto · 95%</span>
+                    </div>
+                    <div class="tech-bar-bg"><div class="tech-bar-fill" style="width:95%; background:linear-gradient(90deg,#007ab8,#00c8ff);"></div></div>
+                </div>
+            </div>
+
+            <div class="tech-item">
+                <div class="tech-icon" style="color:#ff9a00; border-color:rgba(255,154,0,0.3);">Ai</div>
+                <div style="flex:1;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span class="tech-name">Illustrator</span>
+                        <span class="tech-level">Pro · 92%</span>
+                    </div>
+                    <div class="tech-bar-bg"><div class="tech-bar-fill" style="width:92%; background:linear-gradient(90deg,#c07600,#ff9a00);"></div></div>
+                </div>
+            </div>
+
+            <div class="tech-item">
+                <div class="tech-icon" style="color:#e0e0e0; border-color:rgba(255,255,255,0.15);">Cc</div>
+                <div style="flex:1;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span class="tech-name">CapCut</span>
+                        <span class="tech-level">Avanzado · 88%</span>
+                    </div>
+                    <div class="tech-bar-bg"><div class="tech-bar-fill" style="width:88%; background:linear-gradient(90deg,#555,#e0e0e0);"></div></div>
+                </div>
+            </div>
+
+            <div class="tech-item">
+                <div class="tech-icon" style="color:#00c4cc; border-color:rgba(0,196,204,0.3);">Cv</div>
+                <div style="flex:1;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span class="tech-name">Canva</span>
+                        <span class="tech-level">Experto · 98%</span>
+                    </div>
+                    <div class="tech-bar-bg"><div class="tech-bar-fill" style="width:98%; background:linear-gradient(90deg,#008a90,#00c4cc);"></div></div>
+                </div>
+            </div>
+
+            <div class="tech-item">
+                <div class="tech-icon" style="color:#00ffaa; border-color:rgba(0,255,170,0.3);">💻</div>
+                <div style="flex:1;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span class="tech-name">Soporte TI &amp; PC</span>
+                        <span class="tech-level">Avanzado · 90%</span>
+                    </div>
+                    <div class="tech-bar-bg"><div class="tech-bar-fill" style="width:90%; background:linear-gradient(90deg,#009966,#00ffaa);"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CAPABILITIES -->
+        <div class="card">
+            <p class="sec-label">CAPACIDADES PERSONALES</p>
+
+            <div class="cap-item">
+                <span class="cap-label">AUTODIDACTA</span>
+                <span class="cap-on">[ ACTIVO ]</span>
+            </div>
+            <div class="cap-item">
+                <span class="cap-label">RESOLUCIÓN DE PROBLEMAS</span>
+                <span class="cap-on">[ ACTIVO ]</span>
+            </div>
+            <div class="cap-item">
+                <span class="cap-label">LIDERAZGO</span>
+                <span class="cap-on">[ ACTIVO ]</span>
+            </div>
+
+            <div style="margin-top:12px; padding-top:10px; border-top: 1px solid var(--border);">
+                <p class="sec-label" style="margin-bottom:8px;">ENFOQUE PROFESIONAL</p>
+                <p style="font-size:7.5pt; color:var(--gray); line-height:1.6;">
+                    Perfil híbrido entre lo técnico y lo creativo. Especializado en transformar sistemas convencionales en ecosistemas de datos 100% interactivos y visualmente innovadores. Orientado a resultados medibles y reducción de errores operativos.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ══════════════ FILA 3: PROYECTOS ══════════════ -->
+    <div>
+        <p class="sec-label">PROYECTOS DESTACADOS</p>
+        <div class="two-col">
+
+            <div class="proj-item">
+                <p class="proj-title">App Veterinaria (Bulldog F.)</p>
+                <p class="proj-sub">BULLDOG FRANCÉS TRACKER</p>
+                <p class="proj-desc">
+                    <strong style="color:var(--neon-pink);">Problema:</strong> Digitalización de historiales y seguimientos complejos en criaderos.<br>
+                    <strong style="color:var(--neon-cyan);">Solución:</strong> Plataforma con control de camadas, vacunas y árbol genealógico avanzado.<br>
+                    <strong style="color:var(--neon);">Resultado:</strong> Aumento de eficiencia en búsqueda del 80%.
+                </p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Antigravity</span>
+                    <span class="tech-tag">JS Vanilla</span>
+                    <span class="tech-tag">Supabase</span>
+                    <span class="tech-tag">CSS Grid</span>
+                </div>
+            </div>
+
+            <div class="proj-item">
+                <p class="proj-title">Sys. Operativo Administrativo</p>
+                <p class="proj-sub">GESTIÓN &amp; OPERACIONES</p>
+                <p class="proj-desc">
+                    <strong style="color:var(--neon-pink);">Problema:</strong> Falta de control de inventario, facturación errática y gestión de personal.<br>
+                    <strong style="color:var(--neon-cyan);">Solución:</strong> Dashboard centralizado con estadísticas en tiempo real.<br>
+                    <strong style="color:var(--neon);">Resultado:</strong> Reducción de errores humanos al 2%.
+                </p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Vite</span>
+                    <span class="tech-tag">React</span>
+                    <span class="tech-tag">NodeJS</span>
+                    <span class="tech-tag">Webhooks</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ══════════════ FILA 4: SHOWCASE EXTRA ══════════════ -->
+    <div class="card" style="background: rgba(255,42,122,0.04); border-color: rgba(255,42,122,0.2);">
+        <p class="sec-label" style="border-color: var(--neon-pink); color: var(--neon-pink);">FMX MANAGER - PÁGINA ACTIVA</p>
+        <p style="font-size:7.5pt; color:var(--gray); line-height:1.6;">
+            ¡Cansado de la monotonía en Excel! 🚀 Especialista profesional en el diseño y despliegue de sistemas administrativos convencionales hacia <strong style="color:var(--white);">ecosistemas de datos 100% interactivos, coloridos y altamente innovadores</strong>. El FMX Manager es un sistema de gestión visual completo, desarrollado íntegramente por Erick Torres, con tableros dinámicos, dashboards estadísticos y arquitectura de datos relacional.
+        </p>
+    </div>
+
+    <!-- ══════════════ CONTACT ══════════════ -->
+    <div class="card" style="border-color: rgba(0,255,136,0.2);">
+        <p class="sec-label" style="border-color: var(--neon);">CONTACTO Y CANALES</p>
+        <div class="contact-grid">
+            <div class="contact-item">
+                <span class="contact-label">> EMAIL:</span>
+                <span class="contact-val">erick.torres@email.com</span>
+            </div>
+            <div class="contact-item">
+                <span class="contact-label">> TEL:</span>
+                <span class="contact-val">+58 412 000 0000</span>
+            </div>
+            <div class="contact-item">
+                <span class="contact-label">> UBICACIÓN:</span>
+                <span class="contact-val">Caracas, Venezuela 🇻🇪</span>
+            </div>
+            <div class="contact-item">
+                <span class="contact-label">> MODALIDAD:</span>
+                <span class="contact-val">Remoto / Híbrido / Presencial</span>
+            </div>
+            <div class="contact-item" style="grid-column: span 2; margin-top:4px; padding-top:6px; border-top:1px solid var(--border);">
+                <span class="contact-label">> PORTAFOLIO:</span>
+                <a href="https://www.xdzign.pro" target="_blank" style="color:var(--neon-purple); font-size:8pt; font-weight:700; text-decoration:none; letter-spacing:0.5px;">🌐 www.xdzign.pro</a>
+                <span style="font-family:'Space Mono',monospace; font-size:5.5pt; color:var(--gray); margin-left:6px;">(EN VIVO)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════════ FOOTER ══════════════ -->
+    <footer class="footer">
+        ERICK TORRES · VISUAL ENGINEERING · 2025 · CARACAS, VENEZUELA
+    </footer>
+
+</div>
+
+</body>
+</html>

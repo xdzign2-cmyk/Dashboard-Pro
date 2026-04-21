@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erick Torres | Visual Engineering</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./style.css">
+    
+    <!-- GSAP for Animations -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Vanilla Tilt for 3D Cards -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    
+    <!-- Interactive Custom Cursor -->
+    <div id="custom-cursor"></div>
+    <div id="cursor-aura"></div>
+    
+    <!-- Background Canvas -->
+    <canvas id="ambient-canvas"></canvas>
+    
+    <!-- Cyberpunk Overlays -->
+    <div class="scanlines"></div>
+    <div class="grid-bg-container">
+        <div class="cyber-grid"></div>
+    </div>
+
+    <div class="dashboard-wrapper">
+        <main class="grid-layout">
+            
+            <!-- HERO / INTRO: TACTICAL INTERFACE (RECTANGULAR) -->
+            <section class="hero-card">
+                <div class="tactical-hero-container">
+                    
+                    <!-- EXTREME LEFT: VERTICAL STATUS -->
+                    <div class="vertical-status-container">
+                        <div class="v-bar-group">
+                            <span class="v-bar-label">CARGA</span>
+                            <div class="v-bar-bg"><div class="v-bar-fill" style="height: 85%;"></div></div>
+                        </div>
+                        <div class="v-bar-group">
+                            <span class="v-bar-label">VISUAL</span>
+                            <div class="v-bar-bg"><div class="v-bar-fill" style="height: 94%;"></div></div>
+                        </div>
+                    </div>
+
+                    <!-- MAIN CONTENT PANEL -->
+                    <div class="tactical-main-panel">
+                        <div class="badge mb-4" style="max-width:max-content; background:rgba(0,210,255,0.05); border-color:rgba(0,210,255,0.2);">
+                            <span class="pulse"></span>
+                            <span class="font-mono text-[10px] text-neon-cyan">PERFIL EN LÍNEA · CARACAS, VE</span>
+                        </div>
+                        
+                        <h1 class="tactical-title">
+                            ERICK<br/>TORRES
+                        </h1>
+                        <div class="tactical-subtitle mt-2">
+                             > GESTOR DE OPERACIONES TECH & ESPECIALISTA VISUAL
+                        </div>
+                        
+                        <p class="mt-6 text-gray text-md leading-relaxed max-w-lg">
+                            Especialista profesional en el diseño y despliegue de sistemas administrativos convencionales hacia ecosistemas de datos 100% interactivos y de alto impacto visual.
+                        </p>
+
+                        <!-- Command Log Widget -->
+                        <div class="command-log">
+                            <div class="log-line">
+                                <span class="log-ts">[20:25:01]</span>
+                                <span class="log-msg">Iniciando protocolo de renderizado táctico...</span>
+                            </div>
+                            <div class="log-line">
+                                <span class="log-ts">[20:25:02]</span>
+                                <span class="log-msg">Accediendo a base de datos de Caracas, VE.</span>
+                            </div>
+                            <div class="log-line">
+                                <span class="log-ts">[20:25:03]</span>
+                                <span class="log-msg">Perfil de Usuario: 33 Años // Talento Venezolano ✓</span>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 mt-10">
+                            <button class="btn btn-primary interactive-elem magnetic" onclick="document.getElementById('terminal-section').scrollIntoView({behavior:'smooth'})">
+                                CONTACTAR
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT: RECTANGULAR PORTRAIT -->
+                    <div class="tactical-portrait-panel">
+
+                        <div class="portrait-frame interactive-elem" data-tilt data-tilt-max="5">
+                            <!-- Estado dinámico Neón -->
+                            <div class="scan-status-text"></div>
+                            
+                            <!-- Tu foto adaptada -->
+                            <img src="./assets/erick-main.png" alt="Erick Torres" onerror="this.src='./assets/media__1776307382796.png'" />
+                            
+                            <!-- HUD Overlays -->
+                            <div class="portrait-overlay-hud">
+                                <div class="hud-corner hud-corner-tl"></div>
+                                <div class="hud-corner hud-corner-tr"></div>
+                                <div class="hud-corner hud-corner-bl"></div>
+                                <div class="hud-corner hud-corner-br"></div>
+                                <div class="hud-scan-horizontal"></div>
+                                <div class="face-scanner-ui"></div> <!-- EFECTO DE ESCANEO -->
+                            </div>
+
+                            <div class="data-chip chip-2">ERICK TORRES</div>
+                        </div>
+                        
+                        <!-- Side HUD markers -->
+                        <div class="absolute right-0 top-1/2 -translate-y-1/2 flex flex-col gap-2 opacity-30">
+                            <div style="width:15px; height:1px; background:#fff;"></div>
+                            <div style="width:25px; height:1px; background:#fff;"></div>
+                            <div style="width:10px; height:1px; background:#fff;"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+
+
+            <!-- PROFILE & METERS -->
+            <section class="card auto-rows profile-card" data-tilt data-tilt-max="8" data-tilt-glare="true" data-tilt-max-glare="0.2">
+                <div class="card-glow"></div>
+                <div class="card-inner">
+                    <div class="badge mb-4">
+                        <span class="font-mono text-xs text-neon-cyan">COMPETENCIAS</span>
+                    </div>
+                    <div class="skills-meters flex flex-col gap-5 mt-4">
+                        <div class="meter-group">
+                            <div class="flex justify-between font-mono text-xs mb-2">
+                                <span class="text-white">DISEÑO VISUAL</span>
+                                <span class="text-neon">95%</span>
+                            </div>
+                            <div class="meter-bg"><div class="meter-fill fill-green" style="--width: 95%;"></div></div>
+                        </div>
+                        <div class="meter-group">
+                            <div class="flex justify-between font-mono text-xs mb-2">
+                                <span class="text-white">OPERACIONES</span>
+                                <span class="text-neon-purple">90%</span>
+                            </div>
+                            <div class="meter-bg"><div class="meter-fill fill-purple" style="--width: 90%;"></div></div>
+                        </div>
+                        <div class="meter-group">
+                            <div class="flex justify-between font-mono text-xs mb-2">
+                                <span class="text-white">INTEGRACIÓN IA</span>
+                                <span class="text-neon-cyan">85%</span>
+                            </div>
+                            <div class="meter-bg"><div class="meter-fill fill-cyan" style="--width: 85%;"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SKILLS MATRIX -->
+            <section class="card skills-card" data-tilt data-tilt-max="5" data-tilt-glare="true" data-tilt-max-glare="0.1">
+                <div class="card-glow"></div>
+                <div class="card-inner">
+                    <div class="badge mb-4">
+                        <span class="font-mono text-xs text-neon-purple">HABILIDADES</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mt-6">
+                        <div class="skill-pill">
+                            <span class="font-mono text-xs">Antigravity AI</span>
+                        </div>
+                        <div class="skill-pill">
+                            <span class="font-mono text-xs">Supabase</span>
+                        </div>
+                        <div class="skill-pill">
+                            <span class="font-mono text-xs">Diseño UI/UX</span>
+                        </div>
+                        <div class="skill-pill">
+                            <span class="font-mono text-xs">Automatización</span>
+                        </div>
+                        <div class="skill-pill">
+                            <span class="font-mono text-xs">Innovación IA</span>
+                        </div>
+                        <div class="skill-pill">
+                            <span class="font-mono text-xs">Prod. Audiovisual</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PROJECTS MODULE -->
+            <section class="card projects-card" data-tilt data-tilt-max="4" data-tilt-glare="true" data-tilt-max-glare="0.1">
+                <div class="card-glow"></div>
+                <div class="card-inner h-full flex flex-col">
+                    <div class="badge mb-6">
+                        <span class="font-mono text-xs text-neon-blue">PROYECTOS</span>
+                    </div>
+                    <div class="projects-list flex flex-col gap-4">
+                        
+                        <div class="project-item magnetic interactive-elem" onclick="openProjectModal('vet')">
+                            <div class="project-info">
+                                <h4 class="text-white font-semibold text-lg">App Veterinaria</h4>
+                                <span class="font-mono text-xs text-gray uppercase mt-1 block">Bulldog Francés Tracker</span>
+                            </div>
+                            <div class="project-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </div>
+                        </div>
+
+                        <div class="project-item magnetic interactive-elem" onclick="openProjectModal('admin')">
+                            <div class="project-info">
+                                <h4 class="text-white font-semibold text-lg">Sis. Administrativos</h4>
+                                <span class="font-mono text-xs text-gray uppercase mt-1 block">Gestión & Operaciones</span>
+                            </div>
+                            <div class="project-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- TIMELINE -->
+            <section class="card timeline-card" data-tilt data-tilt-max="6" data-tilt-glare="true" data-tilt-max-glare="0.1">
+                <div class="card-glow"></div>
+                <div class="card-inner">
+                    <div class="badge mb-6">
+                        <span class="font-mono text-xs text-white">TRAYECTORIA</span>
+                    </div>
+                    <div class="timeline-container relative">
+                        <div class="timeline-line"></div>
+                        <div class="timeline-node">
+                            <div class="node-dot"></div>
+                            <div class="node-content">
+                                <span class="font-mono text-neon-cyan text-xs">ACTUAL</span>
+                                <h4 class="text-white text-md font-semibold mt-1">Especialista Visual Senior</h4>
+                                <p class="text-gray text-sm mt-1">Implementando sistemas y visuales estéticos.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-node">
+                            <div class="node-dot"></div>
+                            <div class="node-content">
+                                <span class="font-mono text-neon-purple text-xs">FREELANCER</span>
+                                <h4 class="text-white text-md font-semibold mt-1">Líder Op. Digitales</h4>
+                                <p class="text-gray text-sm mt-1">Gestión operativa e innovación estructurada.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-node">
+                            <div class="node-dot"></div>
+                            <div class="node-content">
+                                <span class="font-mono text-[#00c8ff] text-xs">DISEÑO & TI</span>
+                                <h4 class="text-white text-md font-semibold mt-1">Diseñador Gráfico & Técnico</h4>
+                                <p class="text-gray text-sm mt-1">Soporte computacional, branding corporativo audiovisual.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-node">
+                            <div class="node-dot"></div>
+                            <div class="node-content">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-mono text-[#00ffaa] text-xs">AUTOMATION</span>
+                                    <div class="flex items-center justify-center w-5 h-5 rounded-sm bg-[#112a22] border border-[#00ffaa] shadow-[0_0_8px_rgba(0,255,170,0.4)]">
+                                        <span class="font-sans font-bold text-[#00ffaa] text-[12px] leading-none">H</span>
+                                    </div>
+                                </div>
+                                <h4 class="text-white text-md font-semibold mt-1">Experto en AutoHotkey</h4>
+                                <p class="text-gray text-sm mt-1">Creación de macros complejos, desarrollo de scripts para automatización de flujos administrativos y optimización extrema de tiempos en Windows.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- GRAPHIC DESIGN & CREATIVITY -->
+            <section class="card design-card" data-tilt data-tilt-max="6" data-tilt-glare="true" data-tilt-max-glare="0.1">
+                <div class="card-glow"></div>
+                <div class="card-inner">
+                    <div class="badge mb-4">
+                        <span class="font-mono text-xs text-[#ff2a7a]">HERRAMIENTAS & SOFTWARE</span>
+                    </div>
+                    <p class="text-sm text-gray mb-6 leading-relaxed">
+                        Desarrollo gráfico comercial enfocado en conversión, edición de video ágil publicitaria y amplio conocimiento en soporte y armado de computadoras.
+                    </p>
+                    <div class="tech-stack-container">
+                        <div class="tech-item interactive-elem" style="--accent: #00c8ff; --percent: 95%;">
+                            <div class="tech-icon">Ps</div>
+                            <div class="tech-info">
+                                <div class="tech-header">
+                                    <span class="tech-name">Photoshop</span>
+                                    <span class="tech-level">Alto</span>
+                                </div>
+                                <div class="tech-bar-bg"><div class="tech-bar-fill"></div></div>
+                            </div>
+                        </div>
+
+                        <div class="tech-item interactive-elem" style="--accent: #ff9a00; --percent: 92%;">
+                            <div class="tech-icon">Ai</div>
+                            <div class="tech-info">
+                                <div class="tech-header">
+                                    <span class="tech-name">Illustrator</span>
+                                    <span class="tech-level">Pro</span>
+                                </div>
+                                <div class="tech-bar-bg"><div class="tech-bar-fill"></div></div>
+                            </div>
+                        </div>
+
+                        <div class="tech-item interactive-elem" style="--accent: #ffffff; --percent: 88%;">
+                            <div class="tech-icon">Cc</div>
+                            <div class="tech-info">
+                                <div class="tech-header">
+                                    <span class="tech-name">CapCut</span>
+                                    <span class="tech-level">Avanzado</span>
+                                </div>
+                                <div class="tech-bar-bg"><div class="tech-bar-fill"></div></div>
+                            </div>
+                        </div>
+
+                        <div class="tech-item interactive-elem" style="--accent: #00c4cc; --percent: 98%;">
+                            <div class="tech-icon">Cv</div>
+                            <div class="tech-info">
+                                <div class="tech-header">
+                                    <span class="tech-name">Canva</span>
+                                    <span class="tech-level">Experto</span>
+                                </div>
+                                <div class="tech-bar-bg"><div class="tech-bar-fill"></div></div>
+                            </div>
+                        </div>
+
+                        <div class="tech-item interactive-elem" style="--accent: #00ffaa; --percent: 90%;">
+                            <div class="tech-icon font-sans text-xl">💻</div>
+                            <div class="tech-info">
+                                <div class="tech-header">
+                                    <span class="tech-name">Soporte TI & PC</span>
+                                    <span class="tech-level">Avanzado</span>
+                                </div>
+                                <div class="tech-bar-bg"><div class="tech-bar-fill"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CAPABILITIES (TOGGLES) -->
+            <section class="card capabilities-card" data-tilt data-tilt-max="6" data-tilt-glare="true" data-tilt-max-glare="0.1">
+                <div class="card-glow"></div>
+                <div class="card-inner">
+                    <div class="badge mb-6">
+                        <span class="font-mono text-xs text-gray">CAPACIDADES</span>
+                    </div>
+                    <div class="toggles-wrapper flex flex-col gap-4">
+                        <div class="cyber-toggle">
+                            <span class="font-mono text-sm text-white">AUTODIDACTA</span>
+                            <div class="switch magnetic active"></div>
+                        </div>
+                        <div class="cyber-toggle">
+                            <span class="font-mono text-sm text-white">RESOLUCIÓN DE PROBLEMAS</span>
+                            <div class="switch magnetic active"></div>
+                        </div>
+                        <div class="cyber-toggle">
+                            <span class="font-mono text-sm text-white">LIDERAZGO</span>
+                            <div class="switch magnetic active"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FMX MANAGER LIVE SHOWCASE -->
+            <section class="card fmx-showcase col-span-full" data-tilt data-tilt-max="1" data-tilt-glare="true" data-tilt-max-glare="0.05">
+                <div class="card-glow"></div>
+                <div class="card-inner flex flex-col" style="background-color: #0b0c16; border-color: #1a1a2e; padding: 2.5rem;">
+                    <div class="badge mb-6 max-w-max bg-[#1a1a2e] border-[#2a2a40]">
+                        <span class="font-mono text-xs text-[#ff2a7a]">FMX MANAGER - PÁGINA ACTIVA</span>
+                    </div>
+                    
+                    <div class="cyber-note">
+                        <div class="note-icon">!</div>
+                        <p class="font-sans text-md text-white" style="font-weight: 300; letter-spacing: 0.5px; line-height: 1.6; opacity: 0.95;">
+                            ¡Cansado de la monotonía en Excel! 🚀 Especialista profesional en el diseño y despliegue de sistemas administrativos convencionales hacia ecosistemas de datos 100% interactivos, coloridos y altamente innovadores.
+                        </p>
+                    </div>
+
+                    <!-- FMX Screenshots Gallery (ACCORDION LAYOUT) -->
+                    <div class="video-showcase-wrapper interactive-elem">
+                        <video id="fmx-video" class="lazy-video" src="./assets/fmx_demo.mp4" loop muted playsinline preload="metadata" poster="./assets/media__1776304638468.png">
+                            Tu navegador no soporta videos HTML5.
+                        </video>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AUTOHOTKEY DEMO VIDEO -->
+            <section class="card col-span-full" data-tilt data-tilt-max="1" data-tilt-glare="true" data-tilt-max-glare="0.05">
+                <div class="card-glow"></div>
+                <div class="card-inner flex flex-col" style="background: rgba(0,255,170,0.03); border-color: rgba(0,255,170,0.2); padding: 2.5rem;">
+
+                    <!-- Header -->
+                    <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+                        <div>
+                            <div class="badge mb-3" style="border-color: #00ffaa; background: rgba(0,255,170,0.07); max-width: max-content;">
+                                <span class="dot pulse" style="background:#00ffaa; box-shadow: 0 0 8px #00ffaa;"></span>
+                                <span class="font-mono text-xs" style="color:#00ffaa;">AUTOHOTKEY — DEMO</span>
+                            </div>
+                            <h2 style="font-family:'Outfit',sans-serif; font-size:1.4rem; font-weight:700; color:#f0f4ff; letter-spacing:0.5px;">Automatización con AutoHotkey</h2>
+                            <p style="font-size:0.85rem; color:rgba(255,255,255,0.45); margin-top:6px; max-width:600px; line-height:1.6;">
+                                Macros complejos y scripts personalizados para automatizar flujos administrativos y reducir tiempos operativos en entornos Windows.
+                            </p>
+                        </div>
+                        <!-- Stats chips -->
+                        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                            <div style="text-align:center; padding:8px 16px; background:var(--bg-card,#0d0e1a); border:1px solid rgba(0,255,170,0.2); border-radius:8px;">
+                                <span style="font-family:'Space Mono',monospace; font-size:1.2rem; font-weight:700; color:#00ffaa; display:block;">90%</span>
+                                <span style="font-family:'Space Mono',monospace; font-size:0.6rem; color:rgba(255,255,255,0.4); letter-spacing:1px;">EFICIENCIA</span>
+                            </div>
+                            <div style="text-align:center; padding:8px 16px; background:var(--bg-card,#0d0e1a); border:1px solid rgba(0,255,170,0.2); border-radius:8px;">
+                                <span style="font-family:'Space Mono',monospace; font-size:1.2rem; font-weight:700; color:#00ffaa; display:block;">WIN</span>
+                                <span style="font-family:'Space Mono',monospace; font-size:0.6rem; color:rgba(255,255,255,0.4); letter-spacing:1px;">PLATAFORMA</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video Player -->
+                    <div class="video-showcase-wrapper interactive-elem" style="position:relative; border-radius:12px; overflow:hidden; border:1px solid rgba(0,255,170,0.15); background:#000;">
+                        <video
+                            id="ahk-video"
+                            class="lazy-video"
+                            src="./assets/autohotkey_demo.mp4?v=2"
+                            controls
+                            muted
+                            playsinline
+                            preload="metadata"
+                            style="width:100%; max-height:500px; object-fit:contain; display:block;"
+                            onerror="this.style.display='none'; document.getElementById('ahk-placeholder').style.display='flex';"
+                        >
+                            Tu navegador no soporta videos HTML5.
+                        </video>
+                        <!-- Placeholder si no hay video aún -->
+                        <div id="ahk-placeholder" style="display:none; flex-direction:column; align-items:center; justify-content:center; min-height:260px; gap:14px; background:rgba(0,255,170,0.03);">
+                            <div style="width:64px; height:64px; border-radius:50%; border:2px dashed rgba(0,255,170,0.3); display:flex; align-items:center; justify-content:center;">
+                                <span style="font-size:1.8rem;">🎬</span>
+                            </div>
+                            <p style="font-family:'Space Mono',monospace; font-size:0.7rem; color:rgba(0,255,170,0.5); letter-spacing:1px; text-align:center;">
+                                Sube tu video como<br><strong style="color:#00ffaa;">assets/autohotkey_demo.mp4</strong>
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- VISUAL PORTFOLIO (INSTAGRAM & DESIGN) -->
+
+            <section class="card col-span-full" data-tilt data-tilt-max="1" data-tilt-glare="true" data-tilt-max-glare="0.05">
+                <div class="card-glow"></div>
+                <div class="card-inner flex flex-col" style="padding: 2.5rem;">
+                    <div class="badge mb-4" style="border-color: #00c8ff; background-color: rgba(0,200,255,0.05); max-width: max-content;">
+                        <span class="font-mono text-xs text-[#00c8ff]">PORTAFOLIO CREATIVO</span>
+                    </div>
+                    <p class="text-gray text-sm mb-8">Espacio interactivo reservado para tus grillas de Instagram y diseños publicitarios reales. Haz clic en las imágenes de muestra para ampliarlas.</p>
+
+                    <div class="portfolio-grid">
+                        <!-- Portfolio Item 1 (IG Grid Demo) -->
+                        <div class="portfolio-item interactive-elem" onclick="openImageModal('./assets/ig_grid_mockup_1776307382796.png')">
+                            <img src="./assets/ig_grid_mockup_1776307382796.png" alt="IG Grid Demo" loading="lazy" decoding="async" />
+                            <div class="portfolio-overlay">
+                                <span class="font-mono font-bold text-white mb-1">GRILLA INSTAGRAM</span>
+                                <span class="text-xs text-gray uppercase text-center" style="max-width: 80%;">Configura tus fotos reales aquí</span>
+                            </div>
+                        </div>
+
+                        <!-- Portfolio Item 2 (Banner Demo) -->
+                        <div class="portfolio-item interactive-elem" style="grid-column: span 2;" onclick="openImageModal('./assets/marketing_banner_mockup_1776307399025.png')">
+                            <img src="./assets/marketing_banner_mockup_1776307399025.png" alt="Marketing Banner" loading="lazy" decoding="async" />
+                            <div class="portfolio-overlay">
+                                <span class="font-mono font-bold text-[#ff2a7a] mb-1">CAMPAÑA PUBLICITARIA</span>
+                                <span class="text-xs text-gray uppercase text-center" style="max-width: 80%;">Diseño Comercial / Banner</span>
+                            </div>
+                        </div>
+
+                        <!-- Portfolio Item 3 (Brand Demo) -->
+                        <div class="portfolio-item interactive-elem" onclick="openImageModal('./assets/brand_identity_mockup_1776307414141.png')">
+                            <img src="./assets/brand_identity_mockup_1776307414141.png" alt="Branding Concept" loading="lazy" decoding="async" />
+                            <div class="portfolio-overlay">
+                                <span class="font-mono font-bold text-[#00ffaa] mb-1">BRANDING CORPORATIVO</span>
+                                <span class="text-xs text-gray uppercase text-center" style="max-width: 80%;">Identidad Visual</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MULTIPLE REELS / SHORTS SHOWCASE -->
+            <section class="card col-span-full" data-tilt data-tilt-max="1" data-tilt-glare="true" data-tilt-max-glare="0.05">
+                <div class="card-glow"></div>
+                <div class="card-inner flex flex-col items-center" style="padding: 3rem 2rem;">
+                    <div class="badge mb-4" style="border-color: #ff2a7a; background-color: rgba(255,42,122,0.05);">
+                        <span class="dot pulse" style="background: #ff2a7a; box-shadow: 0 0 10px #ff2a7a;"></span>
+                        <span class="font-mono text-xs text-[#ff2a7a]">SHORTS & REELS</span>
+                    </div>
+                    <h2 class="text-white text-2xl font-bold mb-16 text-center" style="font-family: 'Outfit', sans-serif; letter-spacing: 1px;">Proyectos</h2>
+
+                    <div class="flex flex-wrap justify-center w-full mt-4 reels-container">
+                        
+                        <!-- PHONE 1 -->
+                        <div class="cyber-phone-mockup interactive-elem">
+                            <div class="phone-notch"></div>
+                            <div class="phone-screen">
+                                <video id="reels-video-1" class="reels-player" src="./assets/phone1.mp4?v=final" muted playsinline preload="metadata">
+                                    Tu navegador no soporta videos HTML5.
+                                </video>
+
+                            </div>
+                        </div>
+
+                        <!-- PHONE 2 -->
+                        <div class="cyber-phone-mockup interactive-elem">
+                            <div class="phone-notch"></div>
+                            <div class="phone-screen">
+                                <video id="reels-video-2" class="reels-player" src="./assets/phone2.mp4?v=final" muted playsinline preload="metadata">
+                                    Tu navegador no soporta videos HTML5.
+                                </video>
+
+                            </div>
+                        </div>
+
+                        <!-- PHONE 3 -->
+                        <div class="cyber-phone-mockup interactive-elem">
+                            <div class="phone-notch"></div>
+                            <div class="phone-screen">
+                                <video id="reels-video-3" class="reels-player" src="./assets/phone3.mp4?v=final" muted playsinline preload="metadata">
+                                    Tu navegador no soporta videos HTML5.
+                                </video>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <!-- TERMINAL SECTION -->
+            <section id="terminal-section" class="card terminal-card col-span-full" data-tilt data-tilt-max="2" data-tilt-glare="true" data-tilt-max-glare="0.05">
+                <div class="card-glow"></div>
+                <div class="card-inner h-full flex flex-col">
+                    <div class="terminal-header flex justify-between items-center bg-dark rounded-t-lg p-3 border-b border-white-5">
+                        <h3 class="font-mono text-xs text-gray">contacto.form</h3>
+                        <div class="flex gap-2">
+                            <div class="window-btn bg-red-500"></div>
+                            <div class="window-btn bg-yellow-500"></div>
+                            <div class="window-btn bg-green-500"></div>
+                        </div>
+                    </div>
+                    <div class="terminal-body bg-dark-deep p-6 rounded-b-lg flex-1 relative overflow-hidden">
+                        <div id="terminal-content" class="font-mono text-sm text-gray leading-7">
+                            <p><span class="text-neon">root@erick:~#</span> Iniciando protocolo de contacto...</p>
+                            <p><span class="text-neon">root@erick:~#</span> Ingrese sus credenciales abajo para establecer comunicación segura.</p>
+                            
+                            <form id="cyber-form" class="mt-6 flex flex-col gap-4 max-w-lg">
+                                <div class="input-group">
+                                    <span class="text-neon">> EMAIL:</span>
+                                    <input type="email" required autocomplete="off" class="cyber-input interactive-elem" id="t-email" />
+                                </div>
+                                <div class="input-group">
+                                    <span class="text-neon">> TELÉFONO:</span>
+                                    <input type="tel" autocomplete="off" class="cyber-input interactive-elem" id="t-phone" placeholder="+58 412 000 0000" />
+                                </div>
+                                <div class="input-group">
+                                    <span class="text-neon">> MOTIVO:</span>
+                                    <input type="text" required autocomplete="off" class="cyber-input interactive-elem" id="t-msg" />
+                                </div>
+                                <button type="submit" class="cyber-btn mt-4 magnetic">
+                                    ENVIAR MENSAJE
+                                </button>
+                            </form>
+                        </div>
+                        
+                        <!-- Decorative background for terminal -->
+                        <div class="absolute right-0 bottom-0 opacity-5 pointer-events-none w-64 h-64 overflow-hidden">
+                            <div class="font-mono text-xs text-white" style="line-height:0.8; word-wrap:break-word;">
+                                01000101 01010010 01001001 01000011 01001011 00100000 01010100 01001111 01010010 01010010 01000101 01010011 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- HOLOGRAPHIC PROJECT MODAL -->
+    <div id="holo-modal" class="fixed inset-0 z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-500">
+        <div class="absolute inset-0 bg-black bg-opacity-80 backdrop-blur-md" onclick="closeProjectModal()"></div>
+        <div class="modal-card relative w-11/12 max-w-2xl bg-[#0a0a0f] border border-[#2a2a35] rounded-2xl p-8 overflow-hidden transform scale-95 transition-transform duration-500 shadow-2xl">
+            <!-- Glow background -->
+            <div class="absolute top-[-50%] left-[-50%] w-[200%] h-[200%] bg-gradient-to-r from-transparent via-[#00d2ff22] to-transparent animate-spin-slow pointer-events-none z-0"></div>
+            
+            <button class="absolute top-4 right-4 text-gray hover:text-white transition-colors z-20 font-mono text-xl interactive-elem" onclick="closeProjectModal()">[X]</button>
+            
+            <div class="relative z-10" id="modal-content-container">
+                <!-- Data injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals Data -->
+    <script>
+        const projectData = {
+            vet: {
+                title: "App Veterinaria_ (Bulldog F.)",
+                problem: "Digitalización de historiales y seguimientos complejos en criaderos de Bulldogs.",
+                solution: "Desarrollo de plataforma con control de camadas, vacunas y árbol genealógico avanzado.",
+                tech: ["Antigravity", "JS Vanilla", "Supabase", "CSS Grid"],
+                result: "Aumento de eficiencia en búsqueda del 80% y logística perfecta."
+            },
+            admin: {
+                title: "Sys. Operativo Administrativo",
+                problem: "Falta de control de inventario local, facturación errática y problemas de personal.",
+                solution: "Construcción de un dashboard centralizado.",
+                tech: ["Vite", "React", "NodeJS", "Webhooks"],
+                result: "Reducción de errores humanos a un 2%. Control total estadístico."
+            }
+        };
+    </script>
+    <script defer src="./main.js"></script>
+
+    <!-- FULL SCREEN IMAGE MODAL (PURE CSS DISPLAY) -->
+    <div id="image-modal" onclick="closeImageModal()">
+        <button class="absolute top-6 right-6 text-white bg-black bg-opacity-50 hover:bg-opacity-80 rounded-full w-10 h-10 flex items-center justify-center border border-white border-opacity-20 transition-all font-bold interactive-elem z-50">X</button>
+        <img id="image-modal-img" src="" alt="Full Screen Shot" />
+    </div>
+</body>
+</html>
