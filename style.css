@@ -2523,3 +2523,76 @@ body, html {
     box-shadow: 0 0 25px rgba(0, 255, 170, 0.3) !important;
     transform: scale(1.02);
 }
+
+/* Zperanza Centered Modal Styles */
+.zperanza-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(3, 4, 8, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.zperanza-modal-backdrop.active {
+    display: flex;
+    opacity: 1;
+}
+
+.zperanza-modal-card {
+    position: relative;
+    width: 100%;
+    max-width: 750px;
+    background: rgba(8, 9, 16, 0.95);
+    border: 1px solid rgba(0, 200, 255, 0.3);
+    border-radius: 20px;
+    box-shadow: 0 0 50px rgba(0, 200, 255, 0.2);
+    overflow: hidden;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.zperanza-modal-backdrop.active .zperanza-modal-card {
+    transform: scale(1);
+}
+
+.zperanza-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(10, 11, 20, 0.5);
+}
+
+.zperanza-modal-close {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.75rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+
+.zperanza-modal-close:hover {
+    color: #ff2a7a;
+}
+
+.zperanza-modal-body {
+    padding: 2rem 2.5rem;
+    overflow-y: auto;
+    flex: 1;
+}

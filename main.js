@@ -747,4 +747,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
         startAutoSlide();
     }
+
+    // 13. ZPERANZA MODAL DIALOG LOGIC
+    const modalBtn = document.getElementById('btn-zperanza-modal');
+    const modalOverlay = document.getElementById('zperanza-modal-overlay');
+    const modalCloseBtn = document.getElementById('zperanza-modal-close-btn');
+
+    if (modalBtn && modalOverlay) {
+        function openModal() {
+            modalOverlay.style.display = 'flex';
+            modalOverlay.offsetHeight;
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+            setTimeout(() => {
+                if (!modalOverlay.classList.contains('active')) {
+                    modalOverlay.style.display = 'none';
+                }
+            }, 300);
+        }
+
+        modalBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            openModal();
+        });
+
+        if (modalCloseBtn) {
+            modalCloseBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                closeModal();
+            });
+        }
+
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                closeModal();
+            }
+        });
+    }
 });
