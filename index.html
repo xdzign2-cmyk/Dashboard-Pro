@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erick Torres | Visual Engineering</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./style.css">
+    
+    <!-- GSAP for Animations -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Vanilla Tilt for 3D Cards -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    
+    <!-- Interactive Custom Cursor -->
+    <div id="custom-cursor"></div>
+    <div id="cursor-aura"></div>
+    
+    <!-- Background Canvas -->
+    <canvas id="ambient-canvas"></canvas>
+    
+    <!-- Cyberpunk Overlays -->
+    <div class="scanlines"></div>
+    <div class="grid-bg-container">
+        <div class="cyber-grid"></div>
+    </div>
+
+    <div class="dashboard-wrapper">
+        <main class="grid-layout">
+            
+            <!-- HERO / INTRO: TACTICAL INTERFACE (RECTANGULAR) -->
+            <section class="hero-card">
+                <div class="tactical-hero-container">
+                    
+                    <!-- EXTREME LEFT: VERTICAL STATUS -->
+                    <div class="vertical-status-container">
+                        <div class="v-bar-group">
+                            <span class="v-bar-label">CARGA</span>
+                            <div class="v-bar-bg"><div class="v-bar-fill" style="height: 85%;"></div></div>
+                        </div>
+                        <div class="v-bar-group">
+                            <span class="v-bar-label">VISUAL</span>
+                            <div class="v-bar-bg"><div class="v-bar-fill" style="height: 94%;"></div></div>
+                        </div>
+                    </div>
+
+                    <!-- MAIN CONTENT PANEL -->
+                    <div class="tactical-main-panel">
+                        <div class="badge mb-4" style="max-width:max-content; background:rgba(0,210,255,0.05); border-color:rgba(0,210,255,0.2);">
+                            <span class="pulse"></span>
+                            <span class="font-mono text-[10px] text-neon-cyan">PERFIL EN LÍNEA · CARACAS, VE</span>
+                        </div>
+                        
+                        <h1 class="tactical-title">
+                            ERICK<br/>TORRES
+                        </h1>
+                        <div class="tactical-subtitle mt-2">
+                             > GESTOR DE OPERACIONES TECH & ESPECIALISTA VISUAL
+                        </div>
+                        
+                        <p class="mt-6 text-gray text-md leading-relaxed max-w-lg">
+                            Especialista profesional en el diseño y despliegue de sistemas administrativos convencionales hacia ecosistemas de datos 100% interactivos y de alto impacto visual.
+                        </p>
+
+                        <!-- Command Log Widget -->
+                        <div class="command-log">
+                            <div class="log-line">
+                                <span class="log-ts">[20:25:01]</span>
+                                <span class="log-msg">Iniciando protocolo de renderizado táctico...</span>
+                            </div>
+                            <div class="log-line">
+                                <span class="log-ts">[20:25:02]</span>
+                                <span class="log-msg">Accediendo a base de datos de Caracas, VE.</span>
+                            </div>
+                            <div class="log-line">
+                                <span class="log-ts">[20:25:03]</span>
+                                <span class="log-msg">Perfil de Usuario: 33 Años // Talento Venezolano ✓</span>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 mt-10">
+                            <button class="btn btn-primary interactive-elem magnetic" onclick="document.getElementById('terminal-section').scrollIntoView({behavior:'smooth'})">
+                                CONTACTAR
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT: RECTANGULAR PORTRAIT -->
+                    <div class="tactical-portrait-panel">
+
+                        <div class="portrait-frame interactive-elem" data-tilt data-tilt-max="5">
+                            <!-- Estado dinámico Neón -->
+                            <div class="scan-status-text"></div>
+                            
+                            <!-- Tu foto adaptada -->
+                            <img src="./assets/erick-main.png" alt="Erick Torres" onerror="this.src='./assets/media__1776307382796.png'" />
+                            
+                            <!-- HUD Overlays -->
+                            <div class="portrait-overlay-hud">
+                                <div class="hud-corner hud-corner-tl"></div>
+                                <div class="hud-corner hud-corner-tr"></div>
+                                <div class="hud-corner hud-corner-bl"></div>
+                                <div class="hud-corner hud-corner-br"></div>
+                                <div class="hud-scan-horizontal"></div>
+                                <div class="face-scanner-ui"></div> <!-- EFECTO DE ESCANEO -->
+                            </div>
+
+                            <div class="data-chip chip-2">ERICK TORRES</div>
+                        </div>
+                        
+                        <!-- Side HUD markers -->
+                        <div class="absolute right-0 top-1/2 -translate-y-1/2 flex flex-col gap-2 opacity-30">
+                            <div style="width:15px; height:1px; background:#fff;"></div>
+                            <div style="width:25px; height:1px; background:#fff;"></div>
+                            <div style="width:10px; height:1px; background:#fff;"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+
+
+            <!-- PROFILE & METERS -->
+            <section class="card auto-rows profile-card" data-tilt data-tilt-max="8" data-tilt-glare="true" data-tilt-max-glare="0.2">
+                <div class="card-glow"></div>
+                <div class="card-inner">
+                    <div class="badge mb-4">
+                        <span class="font-mono text-xs text-neon-cyan">COMPETENCIAS</span>
+                    </div>
+                    <div class="skills-meters flex flex-col gap-5 mt-4">
+                        <div class="meter-group">
+                            <div class="flex justify-between font-mono text-xs mb-2">
+                                <span class="text-white">DISEÑO VISUAL</span>
+                                <span class="text-neon">95%</span>
+                            </div>
+                            <div class="meter-bg"><div class="meter-fill fill-green" style="--width: 95%;"></div></div>
+                        </div>
+                        <div class="meter-group">
+                            <div class="flex justify-between font-mono text-xs mb-2">
+                                <span class="text-white">OPERACIONES</span>
+                                <span class="text-neon-purple">90%</span>
+                            </div>
+                            <div class="meter-bg"><div class="meter-fill fill-purple" style="--width: 90%;"></div></div>
+                        </div>
+                        <div class="meter-group">
+                            <div class="flex justify-between font-mono text-xs mb-2">
+                                <span class="text-white">INTEGRACIÓN IA</span>
+                                <span class="text-neon-cyan">85%</span>
+                            </div>
+                            <div class="meter-bg"><div class="meter-fill fill-cyan" style="--width: 85%;"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SKILLS MATRIX -->
+            <section class="card skills-card" data-tilt data-tilt-max="5" data-tilt-glare="true" data-tilt-max-glare="0.1">
+                <div class="card-glow"></div>
+                <div class="card-inner">
+                    <div class="badge mb-4">
+                        <span class="font-mono text-xs text-neon-purple">HABILIDADES</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mt-6">
+                        <div class="skill-pill">
+                            <span class="font-mono text-xs">Antigravity AI</span>
+                        </div>
+                        <div class="skill-pill">
+                            <span class="font-mono text-xs">Supabase</span>
+                        </div>
+                        <div class="skill-pill">
+                            <span class="font-mono text-xs">Diseño UI/UX</span>
+                        </div>
+                        <div class="skill-pill">
+                            <span class="font-mono text-xs">Automatización</span>
+                        </div>
+                        <div class="skill-pill">
+                            <span class="font-mono text-xs">Innovación IA</span>
+                        </div>
+                        <div class="skill-pill">
+                            <span class="font-mono text-xs">Prod. Audiovisual</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PROJECTS MODULE -->
+            <section class="card projects-card" data-tilt data-tilt-max="4" data-tilt-glare="true" data-tilt-max-glare="0.1">
+                <div class="card-glow"></div>
+                <div class="card-inner h-full flex flex-col">
+                    <div class="badge mb-6">
+                        <span class="font-mono text-xs text-neon-blue">PROYECTOS</span>
+                    </div>
+                    <div class="projects-list flex flex-col gap-4">
+                        
+                        <div class="project-item magnetic interactive-elem" onclick="openProjectModal('vet')">
+                            <div class="project-info">
+                                <h4 class="text-white font-semibold text-lg">App Veterinaria</h4>
+                                <span class="font-mono text-xs text-gray uppercase mt-1 block">Bulldog Francés Tracker</span>
+                            </div>
+                            <div class="project-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </div>
+                        </div>
+
+                        <div class="project-item magnetic interactive-elem" onclick="openProjectModal('admin')">
+                            <div class="project-info">
+                                <h4 class="text-white font-semibold text-lg">Sis. Administrativos</h4>
+                                <span class="font-mono text-xs text-gray uppercase mt-1 block">Gestión & Operaciones</span>
+                            </div>
+                            <div class="project-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- TIMELINE -->
+            <section class="card timeline-card" data-tilt data-tilt-max="6" data-tilt-glare="true" data-tilt-max-glare="0.1">
+                <div class="card-glow"></div>
+                <div class="card-inner">
+                    <div class="badge mb-6">
+                        <span class="font-mono text-xs text-white">TRAYECTORIA</span>
+                    </div>
+                    <div class="timeline-container relative">
+                        <div class="timeline-line"></div>
+                        <div class="timeline-node">
+                            <div class="node-dot"></div>
+                            <div class="node-content">
+                                <span class="font-mono text-neon-cyan text-xs">ACTUAL</span>
+                                <h4 class="text-white text-md font-semibold mt-1">Especialista Visual Senior</h4>
+                                <p class="text-gray text-sm mt-1">Implementando sistemas y visuales estéticos.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-node">
+                            <div class="node-dot"></div>
+                            <div class="node-content">
+                                <span class="font-mono text-neon-purple text-xs">FREELANCER</span>
+                                <h4 class="text-white text-md font-semibold mt-1">Líder Op. Digitales</h4>
+                                <p class="text-gray text-sm mt-1">Gestión operativa e innovación estructurada.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-node">
+                            <div class="node-dot"></div>
+                            <div class="node-content">
+                                <span class="font-mono text-[#00c8ff] text-xs">DISEÑO & TI</span>
+                                <h4 class="text-white text-md font-semibold mt-1">Diseñador Gráfico & Técnico</h4>
+                                <p class="text-gray text-sm mt-1">Soporte computacional, branding corporativo audiovisual.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-node">
+                            <div class="node-dot"></div>
+                            <div class="node-content">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-mono text-[#00ffaa] text-xs">AUTOMATION</span>
+                                    <div class="flex items-center justify-center w-5 h-5 rounded-sm bg-[#112a22] border border-[#00ffaa] shadow-[0_0_8px_rgba(0,255,170,0.4)]">
+                                        <span class="font-sans font-bold text-[#00ffaa] text-[12px] leading-none">H</span>
+                                    </div>
+                                </div>
+                                <h4 class="text-white text-md font-semibold mt-1">Experto en AutoHotkey</h4>
+                                <p class="text-gray text-sm mt-1">Creación de macros complejos, desarrollo de scripts para automatización de flujos administrativos y optimización extrema de tiempos en Windows.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- GRAPHIC DESIGN & CREATIVITY -->
+            <section class="card design-card" data-tilt data-tilt-max="6" data-tilt-glare="true" data-tilt-max-glare="0.1">
+                <div class="card-glow"></div>
+                <div class="card-inner">
+                    <div class="badge mb-4">
+                        <span class="font-mono text-xs text-[#ff2a7a]">HERRAMIENTAS & SOFTWARE</span>
+                    </div>
+                    <p class="text-sm text-gray mb-6 leading-relaxed">
+                        Estructuración de interfaces web adaptables, bases de datos en la nube en tiempo real, control de versiones colaborativo y despliegue continuo de aplicaciones.
+                    </p>
+                    <div class="tech-stack-container">
+                        <div class="tech-item interactive-elem" style="--accent: #e44d26; --percent: 45%;">
+                            <div class="tech-icon">
+                                <svg viewBox="0 0 24 24" width="22" height="22" fill="#e44d26"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75h5.804l-.227 2.274-2.108.569-2.108-.569-.136-1.5H7.318l.263 2.925L12 14.654l4.418-1.205.474-4.887H8.761L8.531 6.5h8.38l.233-2.5H6.177l.564 5.75z"/></svg>
+                            </div>
+                            <div class="tech-info">
+                                <div class="tech-header">
+                                    <span class="tech-name">HTML</span>
+                                    <span class="tech-level">Básico</span>
+                                </div>
+                                <div class="tech-bar-bg"><div class="tech-bar-fill"></div></div>
+                            </div>
+                        </div>
+
+                        <div class="tech-item interactive-elem" style="--accent: #1572b6; --percent: 40%;">
+                            <div class="tech-icon">
+                                <svg viewBox="0 0 24 24" width="22" height="22" fill="#1572b6"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm14.394 5.75H6.429l.135 1.5h9.162l-.248 2.5H6.702l.135 1.5h8.38l-.66 6.75L12 19.346l-2.557-1.346-.172-1.75H7.018l.298 3.025L12 21.654l4.684-2.429.564-5.725h.001L17.5 5.75h-1.606z"/></svg>
+                            </div>
+                            <div class="tech-info">
+                                <div class="tech-header">
+                                    <span class="tech-name">CSS</span>
+                                    <span class="tech-level">Básico</span>
+                                </div>
+                                <div class="tech-bar-bg"><div class="tech-bar-fill"></div></div>
+                            </div>
+                        </div>
+
+                        <div class="tech-item interactive-elem" style="--accent: #3ecf8e; --percent: 65%;">
+                            <div class="tech-icon">
+                                <svg viewBox="0 0 24 24" width="22" height="22" fill="#3ecf8e"><path d="M21.36 11.23l-7.79-1.25 4.88-7.9c.35-.57-.27-1.24-.86-.94l-14.7 7.42c-.62.31-.59 1.23.05 1.5l7.79 1.25-4.88 7.9c-.35.57.27 1.24.86.94l14.7-7.42c.62-.31.59-1.23-.05-1.5z"/></svg>
+                            </div>
+                            <div class="tech-info">
+                                <div class="tech-header">
+                                    <span class="tech-name">Supabase</span>
+                                    <span class="tech-level">Medio</span>
+                                </div>
+                                <div class="tech-bar-bg"><div class="tech-bar-fill"></div></div>
+                            </div>
+                        </div>
+
+                        <div class="tech-item interactive-elem" style="--accent: #ffca28; --percent: 60%;">
+                            <div class="tech-icon">
+                                <svg viewBox="0 0 24 24" width="22" height="22" fill="#ffca28"><path d="M3.89 15.672L6.255 1.084A.807.807 0 0 1 7.633.64L10.02 5.09 3.89 15.672zM15.42 22.613L12 24.364 2 17.367l.102-.63L15.42 22.613zM16.536 21.84L12.392 7.734a.8.8 0 0 0-1.512-.047L3.924 16.326l12.612 5.514zM20.11 15.672L17.745 1.084A.807.807 0 0 0 16.367.64L13.98 5.09l6.13 10.582z"/></svg>
+                            </div>
+                            <div class="tech-info">
+                                <div class="tech-header">
+                                    <span class="tech-name">Firebase</span>
+                                    <span class="tech-level">Medio</span>
+                                </div>
+                                <div class="tech-bar-bg"><div class="tech-bar-fill"></div></div>
+                            </div>
+                        </div>
+
+                        <div class="tech-item interactive-elem" style="--accent: #ffffff; --percent: 70%;">
+                            <div class="tech-icon">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="#ffffff"><path d="M24 22.525H0L12 1.475L24 22.525Z"/></svg>
+                            </div>
+                            <div class="tech-info">
+                                <div class="tech-header">
+                                    <span class="tech-name">Vercel</span>
+                                    <span class="tech-level">Medio</span>
+                                </div>
+                                <div class="tech-bar-bg"><div class="tech-bar-fill"></div></div>
+                            </div>
+                        </div>
+
+                        <div class="tech-item interactive-elem" style="--accent: #8e8e9e; --percent: 75%;">
+                            <div class="tech-icon">
+                                <svg viewBox="0 0 24 24" width="22" height="22" fill="#ffffff"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                            </div>
+                            <div class="tech-info">
+                                <div class="tech-header">
+                                    <span class="tech-name">GitHub</span>
+                                    <span class="tech-level">Medio</span>
+                                </div>
+                                <div class="tech-bar-bg"><div class="tech-bar-fill"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CAPABILITIES (TOGGLES) -->
+            <section class="card capabilities-card" data-tilt data-tilt-max="6" data-tilt-glare="true" data-tilt-max-glare="0.1">
+                <div class="card-glow"></div>
+                <div class="card-inner">
+                    <div class="badge mb-6">
+                        <span class="font-mono text-xs text-gray">CAPACIDADES</span>
+                    </div>
+                    <div class="toggles-wrapper flex flex-col gap-4">
+                        <div class="cyber-toggle">
+                            <span class="font-mono text-sm text-white">AUTODIDACTA</span>
+                            <div class="switch magnetic active"></div>
+                        </div>
+                        <div class="cyber-toggle">
+                            <span class="font-mono text-sm text-white">RESOLUCIÓN DE PROBLEMAS</span>
+                            <div class="switch magnetic active"></div>
+                        </div>
+                        <div class="cyber-toggle">
+                            <span class="font-mono text-sm text-white">LIDERAZGO</span>
+                            <div class="switch magnetic active"></div>
+                        </div>
+                    </div>
+
+                    <!-- Graphic Design & Support Section -->
+                    <div class="badge mt-8 mb-4">
+                        <span class="font-mono text-xs text-[#00ffaa]">HERRAMIENTAS DE DISEÑO</span>
+                    </div>
+                    <p class="text-xs text-gray mb-4">Herramientas de creación gráfica, edición audiovisual y soporte técnico de hardware.</p>
+                    
+                    <div class="tech-stack-container">
+                        <div class="tech-item interactive-elem" style="--accent: #00c8ff; --percent: 95%;">
+                            <div class="tech-icon">
+                                <svg viewBox="0 0 24 24" width="22" height="22"><rect width="24" height="24" rx="4" fill="#001d3d" stroke="#00a8ff" stroke-width="1.5"/><text x="12" y="16" fill="#00a8ff" font-family="'Outfit', sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Ps</text></svg>
+                            </div>
+                            <div class="tech-info">
+                                <div class="tech-header">
+                                    <span class="tech-name">Photoshop</span>
+                                    <span class="tech-level">Alto</span>
+                                </div>
+                                <div class="tech-bar-bg"><div class="tech-bar-fill"></div></div>
+                            </div>
+                        </div>
+
+                        <div class="tech-item interactive-elem" style="--accent: #ff9a00; --percent: 92%;">
+                            <div class="tech-icon">
+                                <svg viewBox="0 0 24 24" width="22" height="22"><rect width="24" height="24" rx="4" fill="#261400" stroke="#ff9a00" stroke-width="1.5"/><text x="12" y="16" fill="#ff9a00" font-family="'Outfit', sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Ai</text></svg>
+                            </div>
+                            <div class="tech-info">
+                                <div class="tech-header">
+                                    <span class="tech-name">Illustrator</span>
+                                    <span class="tech-level">Pro</span>
+                                </div>
+                                <div class="tech-bar-bg"><div class="tech-bar-fill"></div></div>
+                            </div>
+                        </div>
+
+                        <div class="tech-item interactive-elem" style="--accent: #ffffff; --percent: 88%;">
+                            <div class="tech-icon">
+                                <svg viewBox="0 0 24 24" width="22" height="22"><rect width="24" height="24" rx="4" fill="#0a0a0f" stroke="#ffffff" stroke-width="1.5"/><text x="12" y="16" fill="#ffffff" font-family="'Outfit', sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Cc</text></svg>
+                            </div>
+                            <div class="tech-info">
+                                <div class="tech-header">
+                                    <span class="tech-name">CapCut</span>
+                                    <span class="tech-level">Avanzado</span>
+                                </div>
+                                <div class="tech-bar-bg"><div class="tech-bar-fill"></div></div>
+                            </div>
+                        </div>
+
+                        <div class="tech-item interactive-elem" style="--accent: #00c4cc; --percent: 98%;">
+                            <div class="tech-icon">
+                                <svg viewBox="0 0 24 24" width="22" height="22"><rect width="24" height="24" rx="4" fill="#004b49" stroke="#00c4cc" stroke-width="1.5"/><text x="12" y="16" fill="#00c4cc" font-family="'Outfit', sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Cv</text></svg>
+                            </div>
+                            <div class="tech-info">
+                                <div class="tech-header">
+                                    <span class="tech-name">Canva</span>
+                                    <span class="tech-level">Experto</span>
+                                </div>
+                                <div class="tech-bar-bg"><div class="tech-bar-fill"></div></div>
+                            </div>
+                        </div>
+
+                        <div class="tech-item interactive-elem" style="--accent: #00ffaa; --percent: 90%;">
+                            <div class="tech-icon">
+                                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#00ffaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                            </div>
+                            <div class="tech-info">
+                                <div class="tech-header">
+                                    <span class="tech-name">Soporte TI & PC</span>
+                                    <span class="tech-level">Avanzado</span>
+                                </div>
+                                <div class="tech-bar-bg"><div class="tech-bar-fill"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FMX MANAGER LIVE SHOWCASE -->
+            <section class="card fmx-showcase col-span-full" data-tilt data-tilt-max="1" data-tilt-glare="true" data-tilt-max-glare="0.05">
+                <div class="card-glow"></div>
+                <div class="card-inner flex flex-col" style="background-color: #0b0c16; border-color: #1a1a2e; padding: 2.5rem;">
+                    <div class="badge mb-6 max-w-max bg-[#1a1a2e] border-[#2a2a40]">
+                        <span class="font-mono text-xs text-[#ff2a7a]">FMX MANAGER - PÁGINA ACTIVA</span>
+                    </div>
+                    
+                    <!-- Interactive Button for Tech Details & Audit -->
+                    <div class="relative mb-6">
+                        <button id="btn-tech-details" class="cyber-btn-premium interactive-elem" aria-haspopup="true">
+                            <span class="btn-icon-flash">⚡</span>
+                            <span class="btn-text">VER RESEÑA TÉCNICA E HISTORIAL DE AUDITORÍA</span>
+                            <span class="btn-status-dot"></span>
+                        </button>
+                        
+                        <!-- Floating Details Panel -->
+                        <div id="tech-details-popover" class="tech-popover-card">
+                            <div class="popover-glow"></div>
+                            <div class="popover-header">
+                                <div class="popover-tabs">
+                                    <button class="popover-tabactive" data-tab="tab-review">Reseña de Ingeniería</button>
+                                    <button class="popover-tab" data-tab="tab-audit">Diseño</button>
+                                </div>
+                                <button class="popover-close-btn" id="popover-close-btn">&times;</button>
+                            </div>
+                            
+                            <div class="popover-body">
+                                <!-- Tab 1: Reseña Técnica -->
+                                <div id="tab-review" class="popover-tab-content">
+                                    <h3 class="popover-title text-neon-blue">Reseña Técnica Profesional FMX con Gravity</h3>
+                                    <p class="popover-subtitle">Esta reseña está diseñada con un enfoque orientado a resultados, destacando las decisiones de ingeniería de software, la arquitectura y las buenas prácticas implementadas durante el desarrollo de la plataforma.</p>
+                                    
+                                    <div class="popover-section">
+                                        <div class="section-tag">Ecosistema FMX con Gravity: Dashboard de Control Operativo, Nómina y Seguridad en Tiempo Real</div>
+                                        <div class="role-badge">Rol: Creador, Arquitecto de Software y Desarrollador Principal (Full-Stack Developer)</div>
+                                    </div>
+                                    
+                                    <div class="popover-section">
+                                        <h4 class="section-title">Descripción General del Proyecto</h4>
+                                        <p class="section-desc">FMX con Gravity es un ecosistema digital e industrial de nivel empresarial diseñado para centralizar, auditar y automatizar la gestión diaria de operaciones transaccionales, control de personal y seguridad de clientes. El sistema resuelve el problema del registro manual fragmentado, la falta de visibilidad financiera consolidada y la latencia en la toma de decisiones al unificar en un solo entorno:</p>
+                                        <ul class="popover-list">
+                                            <li>Portal móvil de captura ágil para operarios en el campo.</li>
+                                            <li>Módulo de administración y análisis financiero para mandos medios y alta dirección.</li>
+                                            <li>Sistema de nómina automatizado con liquidaciones por periodos y soporte documental.</li>
+                                            <li>Módulo de seguridad y lista negra (Blacklist) en tiempo real con flujos de aprobación jerárquicos.</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="popover-section">
+                                        <h4 class="section-title">Stack Tecnológico y Rol de Componentes</h4>
+                                        <div class="tech-grid">
+                                            <div class="tech-grid-item">
+                                                <span class="tech-grid-name">React con TypeScript</span>
+                                                <span class="tech-grid-desc">Desarrollo de una interfaz de usuario declarativa, estructurada con tipado estricto para mitigar errores en tiempo de ejecución y asegurar la mantenibilidad del código base.</span>
+                                            </div>
+                                            <div class="tech-grid-item">
+                                                <span class="tech-grid-name">Vite</span>
+                                                <span class="tech-grid-desc">Entorno de desarrollo rápido y empaquetador optimizado que garantiza Hot Module Replacement (HMR) y construcciones eficientes en producción.</span>
+                                            </div>
+                                            <div class="tech-grid-item">
+                                                <span class="tech-grid-name">Supabase (PostgreSQL con RLS con Realtime)</span>
+                                                <span class="tech-grid-desc">Motor de base de datos relacional. Implementa políticas de Row Level Security (RLS) para proteger los registros de transacciones e inicio de sesión, y canales de PostgreSQL Realtime para la propagación instantánea de eventos críticos.</span>
+                                            </div>
+                                            <div class="tech-grid-item">
+                                                <span class="tech-grid-name">Supabase Edge Functions (Deno)</span>
+                                                <span class="tech-grid-desc">Backend serverless utilizado para el pipeline de backup (ETL) automatizado, aislando credenciales del lado del cliente y realizando tareas en segundo plano.</span>
+                                            </div>
+                                            <div class="tech-grid-item">
+                                                <span class="tech-grid-name">Google Sheets API y OAuth2</span>
+                                                <span class="tech-grid-desc">Destino secundario de almacenamiento seguro y generación automática de reportes ejecutivos en la nube directamente mediante llamadas API cifradas.</span>
+                                            </div>
+                                            <div class="tech-grid-item">
+                                                <span class="tech-grid-name">Recharts</span>
+                                                <span class="tech-grid-desc">Biblioteca de visualización de datos utilizada en el módulo publicitario para generar gráficos dinámicos (Area y Bar Charts) del flujo de gastos e indicadores mensuales.</span>
+                                            </div>
+                                            <div class="tech-grid-item">
+                                                <span class="tech-grid-name">otpauth y qrcode</span>
+                                                <span class="tech-grid-desc">Implementación nativa de autenticación multifactor (doble factor) para roles administrativos, permitiendo sincronización con aplicaciones de autenticación estándar (como Google Authenticator).</span>
+                                            </div>
+                                            <div class="tech-grid-item">
+                                                <span class="tech-grid-name">Tailwind CSS y Lucide Icons</span>
+                                                <span class="tech-grid-desc">Framework de diseño para una interfaz moderna, limpia, responsiva y adaptada a la estética actual, con soporte para interfaces oscuras (glassmorphism/aurora void).</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="popover-section">
+                                        <h4 class="section-title">Arquitectura y Decisiones de Diseño</h4>
+                                        <div class="decision-card">
+                                            <span class="decision-title">Modelo de Persistencia Híbrido (Local-First Sync)</span>
+                                            <span class="decision-text">Para garantizar la disponibilidad en escenarios de red inestable o transitoria, se diseñó un flujo donde las entradas manuales de operarios se guardan en el cliente (LocalStorage) bajo una bandera de invalidación rápida (isManual: true) y se fusionan óptimamente con los datos consolidados en la base de datos de Supabase, evitando parpadeos visuales (flickering) y pérdida de datos.</span>
+                                        </div>
+                                        <div class="decision-card">
+                                            <span class="decision-title">Segmentación Jerárquica por Roles (RBAC)</span>
+                                            <span class="decision-text">La plataforma implementa un control de acceso basado en roles que redirige de forma segura a los usuarios al iniciar sesión. Los operarios acceden únicamente al módulo de registro simplificado en sus móviles; el equipo de publicidad (shaipubli) opera sobre una consola de gastos dedicada; mientras que los administradores controlan el espectro total de nóminas, auditorías y usuarios aprobados.</span>
+                                        </div>
+                                        <div class="decision-card">
+                                            <span class="decision-title">Transiciones Horarias Operativas Resilientes</span>
+                                            <span class="decision-text">El negocio opera con un horario nocturno continuo. Se implementó una lógica de transformación de fechas donde los registros realizados antes de las tres AM se consolidan fiscalmente en el día de operación anterior, alineando la analítica técnica con la realidad financiera del negocio.</span>
+                                        </div>
+                                        <div class="decision-card">
+                                            <span class="decision-title">Flujo de Control de Seguridad Descentralizado</span>
+                                            <span class="decision-text">En lugar de permitir la alteración directa de registros de seguridad y suspensiones, las solicitudes críticas (como eliminar clientes de la lista negra o reducir advertencias) realizadas por operarios entran en una tabla intermedia de solicitudes pendientes (restricciones_solicitudes). El Administrador evalúa y aprueba/rechaza cada evento, preservando la integridad del historial.</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="popover-section">
+                                        <h4 class="section-title">Retos y Logros Técnicos</h4>
+                                        <div class="challenge-card">
+                                            <div class="challenge-header text-neon-pink">Sistema de Gestión de Sesiones Activas y Cierre Remoto</div>
+                                            <p class="challenge-item"><strong>El Reto:</strong> Evitar el uso compartido no autorizado de cuentas administrativas e invitadas y permitir que un Administrador invalide instantáneamente el acceso a cualquier terminal.</p>
+                                            <p class="challenge-item"><strong>La Solución:</strong> Creación de un controlador de dispositivos basado en un identificador único persistente por navegador (fmx_device_id) y una tabla activa de sesiones (gestor_sesiones). Se configuró un heartbeat en el cliente que cada ciento veinte segundos verifica el pulso con la base de datos. Si el administrador elimina el registro de sesión remotamente, la aplicación gatilla de inmediato el cierre de sesión (handleLogout) y redirige al login de manera segura.</p>
+                                        </div>
+                                        <div class="challenge-card">
+                                            <div class="challenge-header text-neon-pink">Pipeline ETL a Hojas de Cálculo de Google</div>
+                                            <p class="challenge-item"><strong>El Reto:</strong> Automatizar la creación de copias de seguridad de datos consolidados de uso directivo sin sobrecargar el rendimiento de la aplicación web ni exponer claves privadas de la suite de Google.</p>
+                                            <p class="challenge-item"><strong>La Solución:</strong> Se programó una Supabase Edge Function en Deno/TypeScript que se conecta mediante credenciales OAuth2 (Service Account) a la API de Google Sheets. Al ser invocada, la función crea dinámicamente pestañas fechadas (Backup AAAA-MM-DD), formatea los encabezados y escribe las filas consolidadas.</p>
+                                        </div>
+                                        <div class="challenge-card">
+                                            <div class="challenge-header text-neon-pink">Motor de Advertencias Automatizado y Estados de Suspensión</div>
+                                            <p class="challenge-item"><strong>El Reto:</strong> Gestionar el comportamiento de clientes mediante un sistema de alertas acumulativas que reaccione de inmediato ante faltas.</p>
+                                            <p class="challenge-item"><strong>La Solución:</strong> Desarrollo de un autómata de estados finitos que traduce las advertencias en medidas de control:
+                                                <span class="sub-bullet">Primera Advertencia: Clasificación en estado de observacion.</span>
+                                                <span class="sub-bullet">Segunda Advertencia: Estado de suspendido con una ventana de bloqueo temporal calculada dinámicamente de mas tres horas en la base de datos.</span>
+                                                <span class="sub-bullet">Tercera Advertencia: Estado definitivo de baneado.</span>
+                                                La Sincronización en tiempo real mediante PostgreSQL WebSockets asegura que si un operario aplica una advertencia a un cliente, todas las terminales activas conozcan el estado del cliente instantáneamente.
+                                            </p>
+                                        </div>
+                                        <div class="challenge-card">
+                                            <div class="challenge-header text-neon-pink">Gestión de Horas Complejas y Cierre de Nómina Consolidado</div>
+                                            <p class="challenge-item"><strong>El Reto:</strong> Procesar registros de asistencia en formato de texto libre (como ocho y media o nueve con cinco horas) y calcular la remuneración exacta basada en un valor fijo por hora (nueve dólares con sesenta centavos por hora) o con compensaciones manuales personalizadas, previniendo incoherencias visuales al procesar pagos.</p>
+                                            <p class="challenge-item"><strong>La Solución:</strong> Implementación de un parser numérico robusto que normaliza strings y calcula montos a pagar sobre el total acumulado por quincena. Adicionalmente, se construyó un flujo de Pago de Nómina por quincenas que congela visualmente el balance a cero una vez saldado, archivando el registro histórico y autogestionando el cambio de fechas para el periodo subsecuente de forma inteligente.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="popover-section">
+                                        <h4 class="section-title text-neon-green">Resumen de Logros de Ingeniería</h4>
+                                        <ul class="popover-list green-bullets">
+                                            <li>Cero Pérdida de Datos: El mecanismo híbrido de sincronización y mitigación de fallos de red reduce al mínimo el riesgo de pérdida de transacciones operativas diarias.</li>
+                                            <li>Seguridad Bancaria Integrada: Inclusión de autenticación de doble factor integrada con algoritmos TOTP estándar y un sistema de control de accesos auditado mediante logs persistentes.</li>
+                                            <li>Auditoría y Trazabilidad al cien por ciento: Implementación de un historial de cambios (publicidad_audit e historicos_seguridad) que registra cada inserción, modificación y eliminación, previniendo fraudes o inconsistencias internas.</li>
+                                            <li>Backend Desacoplado y Escalable: Uso de funciones serverless y APIs externas para delegar pesadas cargas de trabajo fuera del cliente React, logrando tiempos de renderizado y carga óptimos en dispositivos móviles de gama baja.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <!-- Tab 2: Diseño (Logs + Frontend Details) -->
+                                <div id="tab-audit" class="popover-tab-content hidden-content">
+                                    <!-- Terminal Logs -->
+                                    <div class="terminal-container">
+                                        <div class="terminal-header">
+                                            <span class="term-dot red-dot"></span>
+                                            <span class="term-dot yellow-dot"></span>
+                                            <span class="term-dot green-dot"></span>
+                                            <span class="term-title">fmx_design_audit.sh</span>
+                                        </div>
+                                        <div class="terminal-body font-mono">
+                                            <div class="term-line"><span class="term-prompt">$</span> cat design_files_audit.log</div>
+                                            <div class="term-line success">tailwind.config.js (Líneas una a doce)</div>
+                                            <div class="term-line success">App.css (Líneas una a cuarenta y tres)</div>
+                                            <div class="term-line success">index.css (Líneas una a nueve)</div>
+                                            <div class="term-line text-[#8e8e9e] mt-2">> Registro de diseño cargado.</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Frontend Details -->
+                                    <h3 class="popover-title text-neon-blue">Detalles Técnicos del Frontend: Arquitectura, CSS y Experiencia de Usuario</h3>
+                                    <p class="popover-subtitle">Aquí tienes el desglose técnico y detallado enfocado exclusivamente en la arquitectura del Frontend, sistema de diseño, experiencia de usuario y optimización de interfaces.</p>
+                                    
+                                    <div class="popover-section">
+                                        <h4 class="section-title">Arquitectura y Descomposición Modular en React</h4>
+                                        <p class="section-desc">La aplicación está diseñada bajo una estructura modular de componentes desacoplados, donde cada vista representa un sub-módulo funcional autónomo inyectado dinámicamente según el rol detectado en la sesión activa:</p>
+                                        
+                                        <!-- Flowchart Schema -->
+                                        <div class="flowchart-container">
+                                            <div class="flow-node core-node">App.tsx (Core y Guardia de Sesión)</div>
+                                            <div class="flow-connector">↓</div>
+                                            <div class="flow-grid">
+                                                <div class="flow-branch">
+                                                    <div class="flow-role">Roles: admin / vicepresident / guest</div>
+                                                    <div class="flow-node panel-node">Dashboard.tsx (Panel de Escritorio)</div>
+                                                    <div class="flow-sub-connector">↓</div>
+                                                    <div class="flow-sub-grid">
+                                                        <div class="flow-node sub-node">NominaModule.tsx (Nómina)</div>
+                                                        <div class="flow-node sub-node">RestriccionModule.tsx (Seguridad)</div>
+                                                    </div>
+                                                </div>
+                                                <div class="flow-branch">
+                                                    <div class="flow-role">Roles: fijo_barco / fijo_cueva</div>
+                                                    <div class="flow-node mobile-node">MobileOperative.tsx (Interfaz Táctil)</div>
+                                                    <div class="flow-sub-connector">↓</div>
+                                                    <div class="flow-sub-grid">
+                                                        <div class="flow-node sub-node">RestriccionModule.tsx (Seguridad)</div>
+                                                        <div class="flow-node sub-node">LocalSync.ts (Sincronización Local)</div>
+                                                    </div>
+                                                </div>
+                                                <div class="flow-branch">
+                                                    <div class="flow-role">Role: shaipubli</div>
+                                                    <div class="flow-node publicity-node">PublicityDashboard.tsx (Gastos)</div>
+                                                    <div class="flow-sub-connector">↓</div>
+                                                    <div class="flow-sub-grid">
+                                                        <div class="flow-node sub-node">Recharts.ts (Métrica de Gastos)</div>
+                                                        <div class="flow-node sub-node">GoogleSheets.ts (Respaldo en Nube)</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <ul class="popover-list">
+                                            <li>Encapsulamiento de Lógica de Negocio: Módulos de gran complejidad operativa reciben estados y llamadas de retorno de sincronización de datos a través de propiedades tipadas, manteniendo el renderizado de la interfaz de usuario aislado de la API.</li>
+                                            <li>Gestión de Estados Locales Reactivos: Uso de estados para control de modales de edición contextual y efectos de actualización con dependencias limpias para reaccionar a cambios en filtros temporales, asegurando que las vistas se actualicen únicamente cuando cambia el contexto del filtro seleccionado.</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="popover-section">
+                                        <h4 class="section-title">Sistema de Diseño Visual y Estética Avanzada</h4>
+                                        <p class="section-desc">La aplicación utiliza un diseño premium, inmersivo y de alto contraste denominado Aurora Void, implementado sobre Tailwind CSS:</p>
+                                        
+                                        <div class="decision-card">
+                                            <span class="decision-title">Elementos de Glassmorphism (Vidrio Esmerilado)</span>
+                                            <span class="decision-text">La tarjeta de autenticación y los paneles flotantes utilizan filtros de difracción y desenfoque para dar un aspecto tridimensional sobre fondos oscuros, simulando un panel físico de acrílico flotando sobre el espacio de trabajo.</span>
+                                        </div>
+                                        
+                                        <div class="decision-card">
+                                            <span class="decision-title">Auroras Dinámicas Ambientales (Glow Blobs)</span>
+                                            <span class="decision-text">El fondo del sitio cuenta con esferas radiales de color translúcido que cambian sutilmente de tamaño para dar dinamismo a la interfaz estática. Se definió una animación de pulso lento en index.css que suaviza la transición de escala de los globos mediante una función de aceleración cúbica.</span>
+                                        </div>
+
+                                        <div class="decision-card">
+                                            <span class="decision-title">Textura de Ruido y Rejilla de Perspectiva (Noise Overlay)</span>
+                                            <span class="decision-text">Para romper la uniformidad digital de los degradados CSS puros, se inyectó una imagen de grano vectorial en modo de mezcla superpuesta con opacidad reducida al veinte por ciento, simulando una textura analógica premium.</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="popover-section">
+                                        <h4 class="section-title">Optimización para Dispositivos Móviles (Mobile-First)</h4>
+                                        <ul class="popover-list">
+                                            <li>Zonas de Pulsación Maximizadas: Los botones transaccionales y de selección de bando tienen alturas amplias de cuarenta y ocho a cincuenta seís píxeles, cumpliendo con los estándares de accesibilidad para móviles.</li>
+                                            <li>Interacciones Táctiles (Feedback Háptico Visual): Uso de modificadores activos en botones de inserción rápida de apuestas y cierres de modal. Esto simula una pulsación física al reducir ligeramente la escala del botón ante el evento táctil del usuario al noventa y cinco por ciento de su tamaño original.</li>
+                                            <li>Optimización del Espacio (Drawer Modals): Formularios de guardado masivo de registros u operaciones de nómina se despliegan en pantallas superpuestas a pantalla completa que se deslizan verticalmente, proporcionando la experiencia de una aplicación nativa.</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="popover-section">
+                                        <h4 class="section-title">Visualización de Datos Avanzada con Recharts</h4>
+                                        <ul class="popover-list">
+                                            <li>Contenedores Flexibles: Uso de contenedores adaptables para asegurar que los gráficos se adapten al cien por ciento de la anchura de pantallas en ordenadores o dispositivos móviles sin romper la cuadrícula.</li>
+                                            <li>Degradados en Elementos SVG: Inyección de degradados lineales dentro del árbol de gráficos para pintar áreas de curvas con transiciones de color de cian a violeta semi-translúcidos, manteniendo la armonía con la paleta de colores oscuros del dashboard.</li>
+                                            <li>Diálogos Emergentes Personalizados de Moneda: Personalización de los tooltips emergentes al pasar el cursor sobre las curvas para mostrar los valores formateados regionalmente en pesos o dólares, calculando el valor convertido en tiempo real utilizando la cotización del dólar configurada.</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="popover-section">
+                                        <h4 class="section-title text-neon-green">Validación y Sanitización Activa del Lado del Cliente</h4>
+                                        <p class="section-desc">Para mitigar llamadas erróneas al backend y proteger la consistencia de los datos, el frontend implementa validaciones estrictas y automáticas en tiempo de entrada:</p>
+                                        <ul class="popover-list green-bullets">
+                                            <li>Limpieza de Números de Teléfono (WhatsApp): En el formulario de restricciones, el campo de teléfono filtra caracteres no numéricos en cada pulsación de tecla, impidiendo el envío de guiones, espacios o letras.</li>
+                                            <li>Prevención de Valores Negativos: Todos los valores monetarios ingresados por los usuarios son filtrados mediante una función matemática para asegurar valores positivos antes de estructurar la consulta de inserción.</li>
+                                            <li>Conversión Inteligente de Formato de Tiempo: Analizador de texto capaz de interpretar horas en formatos decimales o sexagesimales para calcular la remuneración automáticamente.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FMX Screenshots Gallery (ACCORDION LAYOUT) -->
+                    <div class="video-showcase-wrapper interactive-elem">
+                        <video id="fmx-video" class="lazy-video" src="./assets/fmx_demo.mp4" loop muted playsinline preload="metadata" poster="./assets/media__1776304638468.png">
+                            Tu navegador no soporta videos HTML5.
+                        </video>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AUTOHOTKEY DEMO VIDEO -->
+            <section class="card col-span-full" data-tilt data-tilt-max="1" data-tilt-glare="true" data-tilt-max-glare="0.05">
+                <div class="card-glow"></div>
+                <div class="card-inner flex flex-col" style="background: rgba(0,255,170,0.03); border-color: rgba(0,255,170,0.2); padding: 2.5rem;">
+
+                    <!-- Header -->
+                    <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+                        <div>
+                            <div class="badge mb-3" style="border-color: #00ffaa; background: rgba(0,255,170,0.07); max-width: max-content;">
+                                <span class="dot pulse" style="background:#00ffaa; box-shadow: 0 0 8px #00ffaa;"></span>
+                                <span class="font-mono text-xs" style="color:#00ffaa;">AUTOHOTKEY — DEMO</span>
+                            </div>
+                            <h2 style="font-family:'Outfit',sans-serif; font-size:1.4rem; font-weight:700; color:#f0f4ff; letter-spacing:0.5px;">Automatización con AutoHotkey</h2>
+                            <p style="font-size:0.85rem; color:rgba(255,255,255,0.45); margin-top:6px; max-width:600px; line-height:1.6;">
+                                Macros complejos y scripts personalizados para automatizar flujos administrativos y reducir tiempos operativos en entornos Windows.
+                            </p>
+                        </div>
+                        <!-- Stats chips -->
+                        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                            <div style="text-align:center; padding:8px 16px; background:var(--bg-card,#0d0e1a); border:1px solid rgba(0,255,170,0.2); border-radius:8px;">
+                                <span style="font-family:'Space Mono',monospace; font-size:1.2rem; font-weight:700; color:#00ffaa; display:block;">90%</span>
+                                <span style="font-family:'Space Mono',monospace; font-size:0.6rem; color:rgba(255,255,255,0.4); letter-spacing:1px;">EFICIENCIA</span>
+                            </div>
+                            <div style="text-align:center; padding:8px 16px; background:var(--bg-card,#0d0e1a); border:1px solid rgba(0,255,170,0.2); border-radius:8px;">
+                                <span style="font-family:'Space Mono',monospace; font-size:1.2rem; font-weight:700; color:#00ffaa; display:block;">WIN</span>
+                                <span style="font-family:'Space Mono',monospace; font-size:0.6rem; color:rgba(255,255,255,0.4); letter-spacing:1px;">PLATAFORMA</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video Player -->
+                    <div class="video-showcase-wrapper interactive-elem" style="position:relative; border-radius:12px; overflow:hidden; border:1px solid rgba(0,255,170,0.15); background:#000;">
+                        <video
+                            id="ahk-video"
+                            class="lazy-video"
+                            src="./assets/autohotkey_demo.mp4?v=2"
+                            controls
+                            muted
+                            playsinline
+                            preload="metadata"
+                            style="width:100%; max-height:500px; object-fit:contain; display:block;"
+                            onerror="this.style.display='none'; document.getElementById('ahk-placeholder').style.display='flex';"
+                        >
+                            Tu navegador no soporta videos HTML5.
+                        </video>
+                        <!-- Placeholder si no hay video aún -->
+                        <div id="ahk-placeholder" style="display:none; flex-direction:column; align-items:center; justify-content:center; min-height:260px; gap:14px; background:rgba(0,255,170,0.03);">
+                            <div style="width:64px; height:64px; border-radius:50%; border:2px dashed rgba(0,255,170,0.3); display:flex; align-items:center; justify-content:center;">
+                                <span style="font-size:1.8rem;">🎬</span>
+                            </div>
+                            <p style="font-family:'Space Mono',monospace; font-size:0.7rem; color:rgba(0,255,170,0.5); letter-spacing:1px; text-align:center;">
+                                Sube tu video como<br><strong style="color:#00ffaa;">assets/autohotkey_demo.mp4</strong>
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- VISUAL PORTFOLIO (INSTAGRAM & DESIGN) -->
+
+            <section class="card col-span-full" data-tilt data-tilt-max="1" data-tilt-glare="true" data-tilt-max-glare="0.05">
+                <div class="card-glow"></div>
+                <div class="card-inner flex flex-col" style="padding: 2.5rem;">
+                    <div class="badge mb-4" style="border-color: #00c8ff; background-color: rgba(0,200,255,0.05); max-width: max-content;">
+                        <span class="font-mono text-xs text-[#00c8ff]">PORTAFOLIO CREATIVO</span>
+                    </div>
+                    <p class="text-gray text-sm mb-8">Espacio interactivo reservado para tus grillas de Instagram y diseños publicitarios reales. Haz clic en las imágenes de muestra para ampliarlas.</p>
+
+                    <div class="portfolio-grid">
+                        <!-- Portfolio Item 1 (IG Grid Demo) -->
+                        <div class="portfolio-item interactive-elem" onclick="openImageModal('./assets/ig_grid_mockup_1776307382796.png')">
+                            <img src="./assets/ig_grid_mockup_1776307382796.png" alt="IG Grid Demo" loading="lazy" decoding="async" />
+                            <div class="portfolio-overlay">
+                                <span class="font-mono font-bold text-white mb-1">GRILLA INSTAGRAM</span>
+                                <span class="text-xs text-gray uppercase text-center" style="max-width: 80%;">Configura tus fotos reales aquí</span>
+                            </div>
+                        </div>
+
+                        <!-- Portfolio Item 2 (Banner Demo) -->
+                        <div class="portfolio-item interactive-elem" style="grid-column: span 2;" onclick="openImageModal('./assets/marketing_banner_mockup_1776307399025.png')">
+                            <img src="./assets/marketing_banner_mockup_1776307399025.png" alt="Marketing Banner" loading="lazy" decoding="async" />
+                            <div class="portfolio-overlay">
+                                <span class="font-mono font-bold text-[#ff2a7a] mb-1">CAMPAÑA PUBLICITARIA</span>
+                                <span class="text-xs text-gray uppercase text-center" style="max-width: 80%;">Diseño Comercial / Banner</span>
+                            </div>
+                        </div>
+
+                        <!-- Portfolio Item 3 (Brand Demo) -->
+                        <div class="portfolio-item interactive-elem" onclick="openImageModal('./assets/brand_identity_mockup_1776307414141.png')">
+                            <img src="./assets/brand_identity_mockup_1776307414141.png" alt="Branding Concept" loading="lazy" decoding="async" />
+                            <div class="portfolio-overlay">
+                                <span class="font-mono font-bold text-[#00ffaa] mb-1">BRANDING CORPORATIVO</span>
+                                <span class="text-xs text-gray uppercase text-center" style="max-width: 80%;">Identidad Visual</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MULTIPLE REELS / SHORTS SHOWCASE -->
+            <section class="card col-span-full" data-tilt data-tilt-max="1" data-tilt-glare="true" data-tilt-max-glare="0.05">
+                <div class="card-glow"></div>
+                <div class="card-inner flex flex-col items-center" style="padding: 3rem 2rem;">
+                    <div class="badge mb-4" style="border-color: #ff2a7a; background-color: rgba(255,42,122,0.05);">
+                        <span class="dot pulse" style="background: #ff2a7a; box-shadow: 0 0 10px #ff2a7a;"></span>
+                        <span class="font-mono text-xs text-[#ff2a7a]">SHORTS & REELS</span>
+                    </div>
+                    <h2 class="text-white text-2xl font-bold mb-16 text-center" style="font-family: 'Outfit', sans-serif; letter-spacing: 1px;">Proyectos</h2>
+
+                    <div class="flex flex-wrap justify-center w-full mt-4 reels-container">
+                        
+                        <!-- PHONE 1 -->
+                        <div class="cyber-phone-mockup interactive-elem">
+                            <div class="phone-notch"></div>
+                            <div class="phone-screen">
+                                <video id="reels-video-1" class="reels-player" src="./assets/phone1.mp4?v=final" muted playsinline preload="metadata">
+                                    Tu navegador no soporta videos HTML5.
+                                </video>
+
+                            </div>
+                        </div>
+
+                        <!-- PHONE 2 -->
+                        <div class="cyber-phone-mockup interactive-elem">
+                            <div class="phone-notch"></div>
+                            <div class="phone-screen">
+                                <video id="reels-video-2" class="reels-player" src="./assets/phone2.mp4?v=final" muted playsinline preload="metadata">
+                                    Tu navegador no soporta videos HTML5.
+                                </video>
+
+                            </div>
+                        </div>
+
+                        <!-- PHONE 3 -->
+                        <div class="cyber-phone-mockup interactive-elem">
+                            <div class="phone-notch"></div>
+                            <div class="phone-screen">
+                                <video id="reels-video-3" class="reels-player" src="./assets/phone3.mp4?v=final" muted playsinline preload="metadata">
+                                    Tu navegador no soporta videos HTML5.
+                                </video>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <!-- TERMINAL SECTION -->
+            <section id="terminal-section" class="card terminal-card col-span-full" data-tilt data-tilt-max="2" data-tilt-glare="true" data-tilt-max-glare="0.05">
+                <div class="card-glow"></div>
+                <div class="card-inner h-full flex flex-col">
+                    <div class="terminal-header flex justify-between items-center bg-dark rounded-t-lg p-3 border-b border-white-5">
+                        <h3 class="font-mono text-xs text-gray">contacto.form</h3>
+                        <div class="flex gap-2">
+                            <div class="window-btn bg-red-500"></div>
+                            <div class="window-btn bg-yellow-500"></div>
+                            <div class="window-btn bg-green-500"></div>
+                        </div>
+                    </div>
+                    <div class="terminal-body bg-dark-deep p-6 rounded-b-lg flex-1 relative overflow-hidden">
+                        <div id="terminal-content" class="font-mono text-sm text-gray leading-7">
+                            <p><span class="text-neon">root@erick:~#</span> Iniciando protocolo de contacto...</p>
+                            <p><span class="text-neon">root@erick:~#</span> Ingrese sus credenciales abajo para establecer comunicación segura.</p>
+                            
+                            <form id="cyber-form" class="mt-6 flex flex-col gap-4 max-w-lg">
+                                <div class="input-group">
+                                    <span class="text-neon">> EMAIL:</span>
+                                    <input type="email" required autocomplete="off" class="cyber-input interactive-elem" id="t-email" />
+                                </div>
+                                <div class="input-group">
+                                    <span class="text-neon">> TELÉFONO:</span>
+                                    <input type="tel" autocomplete="off" class="cyber-input interactive-elem" id="t-phone" placeholder="+58 412 000 0000" />
+                                </div>
+                                <div class="input-group">
+                                    <span class="text-neon">> MOTIVO:</span>
+                                    <input type="text" required autocomplete="off" class="cyber-input interactive-elem" id="t-msg" />
+                                </div>
+                                <button type="submit" class="cyber-btn mt-4 magnetic">
+                                    ENVIAR MENSAJE
+                                </button>
+                            </form>
+                        </div>
+                        
+                        <!-- Decorative background for terminal -->
+                        <div class="absolute right-0 bottom-0 opacity-5 pointer-events-none w-64 h-64 overflow-hidden">
+                            <div class="font-mono text-xs text-white" style="line-height:0.8; word-wrap:break-word;">
+                                01000101 01010010 01001001 01000011 01001011 00100000 01010100 01001111 01010010 01010010 01000101 01010011 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- HOLOGRAPHIC PROJECT MODAL -->
+    <div id="holo-modal" class="fixed inset-0 z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-500">
+        <div class="absolute inset-0 bg-black bg-opacity-80 backdrop-blur-md" onclick="closeProjectModal()"></div>
+        <div class="modal-card relative w-11/12 max-w-2xl bg-[#0a0a0f] border border-[#2a2a35] rounded-2xl p-8 overflow-hidden transform scale-95 transition-transform duration-500 shadow-2xl">
+            <!-- Glow background -->
+            <div class="absolute top-[-50%] left-[-50%] w-[200%] h-[200%] bg-gradient-to-r from-transparent via-[#00d2ff22] to-transparent animate-spin-slow pointer-events-none z-0"></div>
+            
+            <button class="absolute top-4 right-4 text-gray hover:text-white transition-colors z-20 font-mono text-xl interactive-elem" onclick="closeProjectModal()">[X]</button>
+            
+            <div class="relative z-10" id="modal-content-container">
+                <!-- Data injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals Data -->
+    <script>
+        const projectData = {
+            vet: {
+                title: "App Veterinaria_ (Bulldog F.)",
+                problem: "Digitalización de historiales y seguimientos complejos en criaderos de Bulldogs.",
+                solution: "Desarrollo de plataforma con control de camadas, vacunas y árbol genealógico avanzado.",
+                tech: ["Antigravity", "JS Vanilla", "Supabase", "CSS Grid"],
+                result: "Aumento de eficiencia en búsqueda del 80% y logística perfecta."
+            },
+            admin: {
+                title: "Sys. Operativo Administrativo",
+                problem: "Falta de control de inventario local, facturación errática y problemas de personal.",
+                solution: "Construcción de un dashboard centralizado.",
+                tech: ["Vite", "React", "NodeJS", "Webhooks"],
+                result: "Reducción de errores humanos a un 2%. Control total estadístico."
+            }
+        };
+    </script>
+    <script defer src="./main.js"></script>
+
+    <!-- FULL SCREEN IMAGE MODAL (PURE CSS DISPLAY) -->
+    <div id="image-modal" onclick="closeImageModal()">
+        <button class="absolute top-6 right-6 text-white bg-black bg-opacity-50 hover:bg-opacity-80 rounded-full w-10 h-10 flex items-center justify-center border border-white border-opacity-20 transition-all font-bold interactive-elem z-50">X</button>
+        <img id="image-modal-img" src="" alt="Full Screen Shot" />
+    </div>
+</body>
+</html>

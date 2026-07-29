@@ -1,0 +1,8 @@
+# System Files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+*.ps1.log
+.system_generated/
