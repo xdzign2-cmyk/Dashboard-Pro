@@ -2273,3 +2273,82 @@ body, html {
     gap: 8px;
     width: 100%;
 }
+
+/* Split Bar Styling */
+.cyber-split-bar {
+    display: flex;
+    width: 100%;
+    background: rgba(8, 9, 16, 0.65);
+    border: 1px solid rgba(255, 42, 122, 0.3);
+    border-radius: 12px;
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 0 15px rgba(255, 42, 122, 0.05);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cyber-split-bar:hover {
+    border-color: rgba(255, 42, 122, 0.5);
+    box-shadow: 0 0 25px rgba(255, 42, 122, 0.15);
+}
+
+.split-bar-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 14px 20px;
+    color: #ffffff;
+    font-family: var(--font-mono);
+    font-weight: bold;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.split-left:hover {
+    background: linear-gradient(90deg, rgba(0, 255, 170, 0.08) 0%, transparent 100%);
+    color: #00ffaa;
+    text-shadow: 0 0 8px rgba(0, 255, 170, 0.3);
+}
+
+.split-right:hover, .split-right.active-btn {
+    background: linear-gradient(270deg, rgba(255, 42, 122, 0.08) 0%, transparent 100%);
+    color: #ff2a7a;
+    text-shadow: 0 0 8px rgba(255, 42, 122, 0.3);
+}
+
+/* Keep active styling when popover is open */
+.split-right.active-btn {
+    background: linear-gradient(270deg, rgba(255, 42, 122, 0.15) 0%, transparent 100%) !important;
+    color: #ff2a7a !important;
+    text-shadow: 0 0 8px rgba(255, 42, 122, 0.3);
+}
+
+.split-divider {
+    width: 1px;
+    background: rgba(255, 42, 122, 0.25);
+    align-self: stretch;
+}
+
+@media (max-width: 640px) {
+    .cyber-split-bar {
+        flex-direction: column;
+    }
+    .split-divider {
+        width: 100%;
+        height: 1px;
+    }
+    .split-left:hover {
+        background: linear-gradient(180deg, rgba(0, 255, 170, 0.08) 0%, transparent 100%);
+    }
+    .split-right:hover, .split-right.active-btn {
+        background: linear-gradient(180deg, rgba(255, 42, 122, 0.08) 0%, transparent 100%);
+    }
+}

@@ -507,8 +507,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 popoverUsers.classList.remove('active');
                 isLockedUsers = false;
                 if (btnUsers) {
-                    btnUsers.style.borderColor = '';
-                    btnUsers.style.boxShadow = '';
+                    btnUsers.classList.remove('active-btn');
                 }
             }
             popover.classList.add('active');
@@ -611,11 +610,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
             popoverUsers.classList.add('active');
+            btnUsers.classList.add('active-btn');
         }
 
         function hidePopoverUsers() {
             if (!isLockedUsers) {
                 popoverUsers.classList.remove('active');
+                btnUsers.classList.remove('active-btn');
             }
         }
 
@@ -642,12 +643,9 @@ document.addEventListener('DOMContentLoaded', () => {
             isLockedUsers = !isLockedUsers;
             if (isLockedUsers) {
                 showPopoverUsers();
-                btnUsers.style.borderColor = '#ff2a7a';
-                btnUsers.style.boxShadow = '0 0 25px rgba(255, 42, 122, 0.4)';
             } else {
                 popoverUsers.classList.remove('active');
-                btnUsers.style.borderColor = '';
-                btnUsers.style.boxShadow = '';
+                btnUsers.classList.remove('active-btn');
             }
         });
 
@@ -656,8 +654,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.stopPropagation();
                 isLockedUsers = false;
                 popoverUsers.classList.remove('active');
-                btnUsers.style.borderColor = '';
-                btnUsers.style.boxShadow = '';
+                btnUsers.classList.remove('active-btn');
             });
         }
 
@@ -666,8 +663,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (isLockedUsers && !popoverUsers.contains(e.target) && e.target !== btnUsers) {
                 isLockedUsers = false;
                 popoverUsers.classList.remove('active');
-                btnUsers.style.borderColor = '';
-                btnUsers.style.boxShadow = '';
+                btnUsers.classList.remove('active-btn');
             }
         });
     }
