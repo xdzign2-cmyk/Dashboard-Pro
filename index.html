@@ -898,36 +898,53 @@
                 <div class="card-glow"></div>
                 <div class="card-inner flex flex-col" style="padding: 2.5rem;">
                     <div class="badge mb-4" style="border-color: #00c8ff; background-color: rgba(0,200,255,0.05); max-width: max-content;">
-                        <span class="font-mono text-xs text-[#00c8ff]">PORTAFOLIO CREATIVO</span>
+                        <span class="font-mono text-xs text-[#00c8ff]">PROYECTO DESTACADO</span>
                     </div>
-                    <p class="text-gray text-sm mb-8">Espacio interactivo reservado para los diseños de tus plataformas y proyectos reales. Haz clic en las imágenes de muestra para ampliarlas.</p>
+                    <p class="text-gray text-sm mb-8">Visualizador interactivo de plataformas reales. Explora las vistas del sistema utilizando los controles de pantalla.</p>
 
-                    <div class="portfolio-grid">
-                        <!-- Portfolio Item 1 (Adoptions) -->
-                        <div class="portfolio-item interactive-elem" onclick="openImageModal('./assets/zperanza_adoptions.png')">
-                            <img src="./assets/zperanza_adoptions.png" alt="Zperanza Adoptions" loading="lazy" decoding="async" />
-                            <div class="portfolio-overlay">
-                                <span class="font-mono font-bold text-white mb-1">CATÁLOGO DE ADOPCIÓN</span>
-                                <span class="text-xs text-gray uppercase text-center" style="max-width: 80%;">Búsqueda y Filtros de Mascotas</span>
+                    <div class="zperanza-showcase-container">
+                        <!-- Screen Header -->
+                        <div class="showcase-header">
+                            <div class="header-dots">
+                                <span class="dot-red"></span>
+                                <span class="dot-yellow"></span>
+                                <span class="dot-green"></span>
+                            </div>
+                            <h3 class="showcase-title">Proyecto Zperanza</h3>
+                            <div class="header-status">
+                                <span class="status-pulse"></span>
+                                <span class="status-text font-mono text-[10px] text-gray">LIVE SHOWCASE</span>
                             </div>
                         </div>
 
-                        <!-- Portfolio Item 2 (Hero) -->
-                        <div class="portfolio-item interactive-elem" style="grid-column: span 2;" onclick="openImageModal('./assets/zperanza_hero.png')">
-                            <img src="./assets/zperanza_hero.png" alt="Zperanza Home" loading="lazy" decoding="async" />
-                            <div class="portfolio-overlay">
-                                <span class="font-mono font-bold text-[#ff2a7a] mb-1">PORTAL WEB PRINCIPAL</span>
-                                <span class="text-xs text-gray uppercase text-center" style="max-width: 80%;">Red de Resiliencia y Paz</span>
+                        <!-- Screen Content (Slider) -->
+                        <div class="showcase-screen interactive-elem">
+                            <div class="screen-scanlines"></div>
+                            <div class="slider-container">
+                                <img id="zperanza-slide-1" class="zperanza-slide active" src="./assets/zperanza_hero.png" alt="Zperanza Home" />
+                                <img id="zperanza-slide-2" class="zperanza-slide" src="./assets/zperanza_adoptions.png" alt="Zperanza Adoptions" />
+                                <img id="zperanza-slide-3" class="zperanza-slide" src="./assets/zperanza_testimonials.png" alt="Zperanza Testimonials" />
+                            </div>
+                            
+                            <!-- Slider Nav Controls -->
+                            <div class="slider-controls">
+                                <button class="slider-arrow prev-arrow">&lt;</button>
+                                <div class="slider-dots">
+                                    <span class="slider-dot active"></span>
+                                    <span class="slider-dot"></span>
+                                    <span class="slider-dot"></span>
+                                </div>
+                                <button class="slider-arrow next-arrow">&gt;</button>
                             </div>
                         </div>
 
-                        <!-- Portfolio Item 3 (Testimonials) -->
-                        <div class="portfolio-item interactive-elem" onclick="openImageModal('./assets/zperanza_testimonials.png')">
-                            <img src="./assets/zperanza_testimonials.png" alt="Zperanza Testimonials" loading="lazy" decoding="async" />
-                            <div class="portfolio-overlay">
-                                <span class="font-mono font-bold text-[#00ffaa] mb-1">HISTORIAS DE ESPERANZA</span>
-                                <span class="text-xs text-gray uppercase text-center" style="max-width: 80%;">Testimonios y Casos de Éxito</span>
-                            </div>
+                        <!-- Visitar Plataforma Button -->
+                        <div class="showcase-footer mt-6" style="display: flex; justify-content: center; width: 100%;">
+                            <a href="https://zperanza.help/" target="_blank" class="cyber-btn-premium visits-btn interactive-elem" style="background: linear-gradient(135deg, rgba(0, 255, 170, 0.1) 0%, rgba(0, 200, 255, 0.1) 100%); border-color: rgba(0, 255, 170, 0.4); text-decoration: none; color: #fff; width: 100%; max-width: 400px; display: flex; justify-content: center; align-items: center;">
+                                <span class="btn-icon-flash" style="color: #00ffaa;">🌐</span>
+                                <span class="btn-text">INGRESAR A LA PÁGINA</span>
+                                <span class="btn-status-dot" style="background-color: #00ffaa; box-shadow: 0 0 8px #00ffaa; margin-left: auto;"></span>
+                            </a>
                         </div>
                     </div>
                 </div>

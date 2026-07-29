@@ -667,4 +667,83 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // 12. ZPERANZA PROJECT SLIDER SHOWCASE
+    const slides = document.querySelectorAll('.zperanza-slide');
+    const dots = document.querySelectorAll('.slider-dot');
+    const prevBtn = document.querySelector('.prev-arrow');
+    const nextBtn = document.querySelector('.next-arrow');
+
+    if (slides.length > 0) {
+        let currentSlideIndex = 0;
+        let slideInterval = null;
+
+        function showSlide(index) {
+            if (index >= slides.length) {
+                currentSlideIndex = 0;
+            } else if (index < 0) {
+                currentSlideIndex = slides.length - 1;
+            } else {
+                currentSlideIndex = index;
+            }
+
+            slides.forEach((slide, idx) => {
+                if (idx === currentSlideIndex) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+
+            dots.forEach((dot, idx) => {
+                if (idx === currentSlideIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        function startAutoSlide() {
+            stopAutoSlide();
+            slideInterval = setInterval(() => {
+                showSlide(currentSlideIndex + 1);
+            }, 4000);
+        }
+
+        function stopAutoSlide() {
+            if (slideInterval) {
+                clearInterval(slideInterval);
+            }
+        }
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                stopAutoSlide();
+                showSlide(currentSlideIndex - 1);
+                startAutoSlide();
+            });
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                stopAutoSlide();
+                showSlide(currentSlideIndex + 1);
+                startAutoSlide();
+            });
+        }
+
+        dots.forEach((dot, idx) => {
+            dot.addEventListener('click', (e) => {
+                e.preventDefault();
+                stopAutoSlide();
+                showSlide(idx);
+                startAutoSlide();
+            });
+        });
+
+        startAutoSlide();
+    }
 });
