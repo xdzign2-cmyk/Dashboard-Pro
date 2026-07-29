@@ -490,13 +490,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const btn = document.getElementById('btn-tech-details');
     const popover = document.getElementById('tech-details-popover');
     const closeBtn = document.getElementById('popover-close-btn');
+
+    const btnUsers = document.getElementById('btn-test-users');
+    const popoverUsers = document.getElementById('test-users-popover');
+    const closeBtnUsers = document.getElementById('users-close-btn');
     
+    let isLocked = false;
+    let isLockedUsers = false;
+    let hideTimeout = null;
+    let hideTimeoutUsers = null;
+
     if (btn && popover) {
-        let isLocked = false;
-        let hideTimeout = null;
-        
         function showPopover() {
             clearTimeout(hideTimeout);
+            if (popoverUsers && popoverUsers.classList.contains('active')) {
+                popoverUsers.classList.remove('active');
+                isLockedUsers = false;
+                if (btnUsers) {
+                    btnUsers.style.borderColor = '';
+                    btnUsers.style.boxShadow = '';
+                }
+            }
             popover.classList.add('active');
         }
         
@@ -533,8 +547,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.style.boxShadow = '0 0 25px rgba(255, 42, 122, 0.4)';
             } else {
                 popover.classList.remove('active');
-                btn.style.borderColor = 'rgba(255, 42, 122, 0.4)';
-                btn.style.boxShadow = '0 0 15px rgba(255, 42, 122, 0.1)';
+                btn.style.borderColor = '';
+                btn.style.boxShadow = '';
             }
         });
         
@@ -582,6 +596,79 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
             });
+        });
+    }
+
+    if (btnUsers && popoverUsers) {
+        function showPopoverUsers() {
+            clearTimeout(hideTimeoutUsers);
+            if (popover && popover.classList.contains('active')) {
+                popover.classList.remove('active');
+                isLocked = false;
+                if (btn) {
+                    btn.style.borderColor = '';
+                    btn.style.boxShadow = '';
+                }
+            }
+            popoverUsers.classList.add('active');
+        }
+
+        function hidePopoverUsers() {
+            if (!isLockedUsers) {
+                popoverUsers.classList.remove('active');
+            }
+        }
+
+        btnUsers.addEventListener('mouseenter', showPopoverUsers);
+        btnUsers.addEventListener('mouseleave', () => {
+            hideTimeoutUsers = setTimeout(() => {
+                if (!popoverUsers.matches(':hover') && !btnUsers.matches(':hover')) {
+                    hidePopoverUsers();
+                }
+            }, 200);
+        });
+
+        popoverUsers.addEventListener('mouseenter', showPopoverUsers);
+        popoverUsers.addEventListener('mouseleave', () => {
+            hideTimeoutUsers = setTimeout(() => {
+                if (!popoverUsers.matches(':hover') && !btnUsers.matches(':hover')) {
+                    hidePopoverUsers();
+                }
+            }, 200);
+        });
+
+        btnUsers.addEventListener('click', (e) => {
+            e.stopPropagation();
+            isLockedUsers = !isLockedUsers;
+            if (isLockedUsers) {
+                showPopoverUsers();
+                btnUsers.style.borderColor = '#ff2a7a';
+                btnUsers.style.boxShadow = '0 0 25px rgba(255, 42, 122, 0.4)';
+            } else {
+                popoverUsers.classList.remove('active');
+                btnUsers.style.borderColor = '';
+                btnUsers.style.boxShadow = '';
+            }
+        });
+
+        if (closeBtnUsers) {
+            closeBtnUsers.addEventListener('click', (e) => {
+                e.stopPropagation();
+                isLockedUsers = false;
+                popoverUsers.classList.remove('active');
+                btnUsers.style.borderColor = '';
+                btnUsers.style.boxShadow = '';
+            });
+        }
+
+        // Hide when clicking outside
+        document.addEventListener('click', (e) => {
+            if (isLockedUsers && !popoverUsers.contains(e.target) && e.target !== btnUsers) {
+                isLockedUsers = false;
+                popoverUsers.classList.remove('active');
+                btnUsers.style.borderColor = '';
+                btnUsers.style.boxShadow = '';
+            }
         });
     }
 });

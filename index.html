@@ -502,13 +502,28 @@
                         <span class="font-mono text-xs text-[#ff2a7a]">FMX MANAGER - PÁGINA ACTIVA</span>
                     </div>
                     
-                    <!-- Interactive Button for Tech Details & Audit -->
+                    <!-- Interactive Action Buttons -->
                     <div class="relative mb-6">
-                        <button id="btn-tech-details" class="cyber-btn-premium interactive-elem" aria-haspopup="true">
-                            <span class="btn-icon-flash">⚡</span>
-                            <span class="btn-text">VER RESEÑA TÉCNICA E HISTORIAL DE AUDITORÍA</span>
-                            <span class="btn-status-dot"></span>
-                        </button>
+                        <div class="flex flex-wrap gap-4 mb-6">
+                            <!-- Button 1: Tech Details & Audit -->
+                            <button id="btn-tech-details" class="cyber-btn-premium interactive-elem flex-1 min-w-[250px]" aria-haspopup="true">
+                                <span class="btn-icon-flash">⚡</span>
+                                <span class="btn-text">VER RESEÑA TÉCNICA E HISTORIAL DE AUDITORÍA</span>
+                                <span class="btn-status-dot"></span>
+                            </button>
+                            
+                            <!-- Button 2: Try Interface -->
+                            <a href="https://www.felipemanager.blog" target="_blank" class="cyber-btn-premium interactive-elem flex-1 min-w-[250px] text-center flex items-center justify-center" style="background: linear-gradient(135deg, #00ffaa, #00c4cc); border-color: #00ffaa; color: #0a0a0f; text-decoration: none;">
+                                <span class="btn-icon-flash" style="color: #0a0a0f;">⚡</span>
+                                <span class="btn-text" style="font-weight: bold; color: #0a0a0f;">PRUEBA LA INTERFAZ</span>
+                            </a>
+
+                            <!-- Button 3: Test Users -->
+                            <button id="btn-test-users" class="cyber-btn-premium interactive-elem flex-1 min-w-[250px] flex items-center justify-center" style="background: linear-gradient(135deg, #7000ff, #ff2a7a); border-color: #ff2a7a;">
+                                <span class="btn-icon-flash">👤</span>
+                                <span class="btn-text">USUARIOS DE PRUEBA</span>
+                            </button>
+                        </div>
                         
                         <!-- Floating Details Panel -->
                         <div id="tech-details-popover" class="tech-popover-card">
@@ -757,6 +772,20 @@
                                         </ul>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <!-- Floating Test Users Panel -->
+                        <div id="test-users-popover" class="tech-popover-card" style="max-width: 420px; height: auto; min-height: 220px; border-color: rgba(112, 0, 255, 0.4); left: auto; right: 0;">
+                            <div class="popover-glow" style="background: radial-gradient(circle at 50% 30%, rgba(112, 0, 255, 0.15), transparent 70%);"></div>
+                            <div class="popover-header">
+                                <span class="font-mono text-xs text-[#00ffaa]">ACCESOS DEMO</span>
+                                <button class="popover-close-btn" id="users-close-btn">&times;</button>
+                            </div>
+                            <div class="popover-body flex flex-col gap-4 justify-center items-center text-center p-6" style="padding-bottom: 2rem;">
+                                <span class="text-2xl">🔑</span>
+                                <h4 class="text-white font-semibold text-md">Credenciales de Acceso</h4>
+                                <p class="text-gray text-xs mb-2">Los usuarios y contraseñas de demostración para el sistema se configurarán en este apartado próximamente.</p>
                             </div>
                         </div>
                     </div>
