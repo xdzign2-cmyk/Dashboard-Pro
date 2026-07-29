@@ -494,11 +494,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnUsers = document.getElementById('btn-test-users');
     const popoverUsers = document.getElementById('test-users-popover');
     const closeBtnUsers = document.getElementById('users-close-btn');
+
+    const btnZp = document.getElementById('btn-zperanza-review');
+    const popoverZp = document.getElementById('zperanza-review-popover');
+    const closeBtnZp = document.getElementById('zperanza-close-btn');
     
     let isLocked = false;
     let isLockedUsers = false;
+    let isLockedZp = false;
+
     let hideTimeout = null;
     let hideTimeoutUsers = null;
+    let hideTimeoutZp = null;
 
     if (btn && popover) {
         function showPopover() {
@@ -508,6 +515,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 isLockedUsers = false;
                 if (btnUsers) {
                     btnUsers.classList.remove('active-btn');
+                }
+            }
+            if (popoverZp && popoverZp.classList.contains('active')) {
+                popoverZp.classList.remove('active');
+                isLockedZp = false;
+                if (btnZp) {
+                    btnZp.classList.remove('active-btn');
                 }
             }
             popover.classList.add('active');
@@ -609,6 +623,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     btn.style.boxShadow = '';
                 }
             }
+            if (popoverZp && popoverZp.classList.contains('active')) {
+                popoverZp.classList.remove('active');
+                isLockedZp = false;
+                if (btnZp) {
+                    btnZp.classList.remove('active-btn');
+                }
+            }
             popoverUsers.classList.add('active');
             btnUsers.classList.add('active-btn');
         }
@@ -668,82 +689,80 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 12. ZPERANZA PROJECT SLIDER SHOWCASE
-    const slides = document.querySelectorAll('.zperanza-slide');
-    const dots = document.querySelectorAll('.slider-dot');
-    const prevBtn = document.querySelector('.prev-arrow');
-    const nextBtn = document.querySelector('.next-arrow');
-
-    if (slides.length > 0) {
-        let currentSlideIndex = 0;
-        let slideInterval = null;
-
-        function showSlide(index) {
-            if (index >= slides.length) {
-                currentSlideIndex = 0;
-            } else if (index < 0) {
-                currentSlideIndex = slides.length - 1;
-            } else {
-                currentSlideIndex = index;
+    if (btnZp && popoverZp) {
+        function showPopoverZp() {
+            clearTimeout(hideTimeoutZp);
+            if (popover && popover.classList.contains('active')) {
+                popover.classList.remove('active');
+                isLocked = false;
+                if (btn) {
+                    btn.style.borderColor = '';
+                    btn.style.boxShadow = '';
+                }
             }
-
-            slides.forEach((slide, idx) => {
-                if (idx === currentSlideIndex) {
-                    slide.classList.add('active');
-                } else {
-                    slide.classList.remove('active');
+            if (popoverUsers && popoverUsers.classList.contains('active')) {
+                popoverUsers.classList.remove('active');
+                isLockedUsers = false;
+                if (btnUsers) {
+                    btnUsers.classList.remove('active-btn');
                 }
-            });
-
-            dots.forEach((dot, idx) => {
-                if (idx === currentSlideIndex) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
-            });
+            }
+            popoverZp.classList.add('active');
+            btnZp.classList.add('active-btn');
         }
 
-        function startAutoSlide() {
-            stopAutoSlide();
-            slideInterval = setInterval(() => {
-                showSlide(currentSlideIndex + 1);
-            }, 4000);
-        }
-
-        function stopAutoSlide() {
-            if (slideInterval) {
-                clearInterval(slideInterval);
+        function hidePopoverZp() {
+            if (!isLockedZp) {
+                popoverZp.classList.remove('active');
+                btnZp.classList.remove('active-btn');
             }
         }
 
-        if (prevBtn) {
-            prevBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                stopAutoSlide();
-                showSlide(currentSlideIndex - 1);
-                startAutoSlide();
-            });
-        }
-
-        if (nextBtn) {
-            nextBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                stopAutoSlide();
-                showSlide(currentSlideIndex + 1);
-                startAutoSlide();
-            });
-        }
-
-        dots.forEach((dot, idx) => {
-            dot.addEventListener('click', (e) => {
-                e.preventDefault();
-                stopAutoSlide();
-                showSlide(idx);
-                startAutoSlide();
-            });
+        btnZp.addEventListener('mouseenter', showPopoverZp);
+        btnZp.addEventListener('mouseleave', () => {
+            hideTimeoutZp = setTimeout(() => {
+                if (!popoverZp.matches(':hover') && !btnZp.matches(':hover')) {
+                    hidePopoverZp();
+                }
+            }, 200);
         });
 
-        startAutoSlide();
+        popoverZp.addEventListener('mouseenter', showPopoverZp);
+        popoverZp.addEventListener('mouseleave', () => {
+            hideTimeoutZp = setTimeout(() => {
+                if (!popoverZp.matches(':hover') && !btnZp.matches(':hover')) {
+                    hidePopoverZp();
+                }
+            }, 200);
+        });
+
+        btnZp.addEventListener('click', (e) => {
+            e.stopPropagation();
+            isLockedZp = !isLockedZp;
+            if (isLockedZp) {
+                showPopoverZp();
+            } else {
+                popoverZp.classList.remove('active');
+                btnZp.classList.remove('active-btn');
+            }
+        });
+
+        if (closeBtnZp) {
+            closeBtnZp.addEventListener('click', (e) => {
+                e.stopPropagation();
+                isLockedZp = false;
+                popoverZp.classList.remove('active');
+                btnZp.classList.remove('active-btn');
+            });
+        }
+
+        // Hide when clicking outside
+        document.addEventListener('click', (e) => {
+            if (isLockedZp && !popoverZp.contains(e.target) && e.target !== btnZp) {
+                isLockedZp = false;
+                popoverZp.classList.remove('active');
+                btnZp.classList.remove('active-btn');
+            }
+        });
     }
 });

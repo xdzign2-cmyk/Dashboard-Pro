@@ -900,51 +900,70 @@
                     <div class="badge mb-4" style="border-color: #00c8ff; background-color: rgba(0,200,255,0.05); max-width: max-content;">
                         <span class="font-mono text-xs text-[#00c8ff]">PROYECTO DESTACADO</span>
                     </div>
-                    <p class="text-gray text-sm mb-8">Visualizador interactivo de plataformas reales. Explora las vistas del sistema utilizando los controles de pantalla.</p>
+                    <p class="text-gray text-sm mb-8">Plataforma digital interactiva de ayuda y rescate animal en situaciones de desastres en Venezuela.</p>
 
-                    <div class="zperanza-showcase-container">
-                        <!-- Screen Header -->
-                        <div class="showcase-header">
-                            <div class="header-dots">
-                                <span class="dot-red"></span>
-                                <span class="dot-yellow"></span>
-                                <span class="dot-green"></span>
-                            </div>
-                            <h3 class="showcase-title">Proyecto Zperanza</h3>
-                            <div class="header-status">
-                                <span class="status-pulse"></span>
-                                <span class="status-text font-mono text-[10px] text-gray">LIVE SHOWCASE</span>
-                            </div>
-                        </div>
-
-                        <!-- Screen Content (Slider) -->
-                        <div class="showcase-screen interactive-elem">
-                            <div class="screen-scanlines"></div>
-                            <div class="slider-container">
-                                <img id="zperanza-slide-1" class="zperanza-slide active" src="./assets/zperanza_hero.png" alt="Zperanza Home" />
-                                <img id="zperanza-slide-2" class="zperanza-slide" src="./assets/zperanza_adoptions.png" alt="Zperanza Adoptions" />
-                                <img id="zperanza-slide-3" class="zperanza-slide" src="./assets/zperanza_testimonials.png" alt="Zperanza Testimonials" />
-                            </div>
-                            
-                            <!-- Slider Nav Controls -->
-                            <div class="slider-controls">
-                                <button class="slider-arrow prev-arrow">&lt;</button>
-                                <div class="slider-dots">
-                                    <span class="slider-dot active"></span>
-                                    <span class="slider-dot"></span>
-                                    <span class="slider-dot"></span>
-                                </div>
-                                <button class="slider-arrow next-arrow">&gt;</button>
-                            </div>
-                        </div>
-
-                        <!-- Visitar Plataforma Button -->
-                        <div class="showcase-footer mt-6" style="display: flex; justify-content: center; width: 100%;">
-                            <a href="https://zperanza.help/" target="_blank" class="cyber-btn-premium visits-btn interactive-elem" style="background: linear-gradient(135deg, rgba(0, 255, 170, 0.1) 0%, rgba(0, 200, 255, 0.1) 100%); border-color: rgba(0, 255, 170, 0.4); text-decoration: none; color: #fff; width: 100%; max-width: 400px; display: flex; justify-content: center; align-items: center;">
-                                <span class="btn-icon-flash" style="color: #00ffaa;">🌐</span>
-                                <span class="btn-text">INGRESAR A LA PÁGINA</span>
-                                <span class="btn-status-dot" style="background-color: #00ffaa; box-shadow: 0 0 8px #00ffaa; margin-left: auto;"></span>
+                    <div class="relative mb-6">
+                        <div class="cyber-split-bar interactive-elem" style="border-color: rgba(0, 200, 255, 0.3); box-shadow: 0 0 15px rgba(0, 200, 255, 0.05);">
+                            <a href="https://zperanza.help/" target="_blank" class="split-bar-btn split-left" style="color: #ffffff;">
+                                <span class="btn-icon-flash" style="filter: drop-shadow(0 0 4px #00ffaa); color: #00ffaa;">🌐</span>
+                                <span class="split-btn-text">INGRESAR A LA PÁGINA</span>
                             </a>
+                            <div class="split-divider" style="background: rgba(0, 200, 255, 0.25);"></div>
+                            <button id="btn-zperanza-review" class="split-bar-btn split-right-cyan">
+                                <span class="btn-icon-flash" style="filter: drop-shadow(0 0 4px #00c8ff); color: #00c8ff;">📋</span>
+                                <span class="split-btn-text">RESEÑA DE ZPERANZA</span>
+                            </button>
+                        </div>
+
+                        <!-- Floating Zperanza Review Panel -->
+                        <div id="zperanza-review-popover" class="tech-popover-card" style="border-color: rgba(0, 200, 255, 0.4); max-width: 680px; height: 500px;">
+                            <div class="popover-glow" style="background: radial-gradient(circle at 50% 30%, rgba(0, 200, 255, 0.15), transparent 70%);"></div>
+                            <div class="popover-header">
+                                <span class="font-mono text-xs text-[#00c8ff]">INFORMACIÓN DEL PROYECTO</span>
+                                <button class="popover-close-btn" id="zperanza-close-btn">&times;</button>
+                            </div>
+                            <div class="popover-body p-6 flex flex-col gap-5 overflow-y-auto" style="max-height: calc(100% - 60px);">
+                                <div class="flex items-center gap-4 mb-2">
+                                    <img src="./assets/zperanza_logo.png" alt="Zperanza Logo" style="height: 40px; object-fit: contain;" />
+                                    <div>
+                                        <h4 class="text-white font-bold text-lg leading-tight">Proyecto Zperanza</h4>
+                                        <p class="text-[#00c8ff] font-mono text-xs">Plataforma de Apoyo & Rescate Animal</p>
+                                    </div>
+                                </div>
+
+                                <div class="popover-section">
+                                    <p class="section-desc">
+                                        <a href="https://zperanza.help/" target="_blank" class="text-[#00c8ff] hover:underline" style="text-decoration: none; font-weight: bold;">Zperanza</a> es una plataforma venezolana de apoyo y rescate animal sin fines de lucro, diseñada para coordinar la ayuda a mascotas e insumos en refugios, especialmente durante situaciones de emergencia o desastres naturales (como sismos).
+                                    </p>
+                                </div>
+
+                                <div class="popover-section">
+                                    <h5 class="text-[#00ffaa] font-semibold text-sm mb-2 flex items-center gap-2">🐾 ¿Cuál es su objetivo principal?</h5>
+                                    <p class="section-desc">Servir de puente entre organizaciones o entes oficiales y personas solidarias para salvar, alimentar, medicar y dar en adopción a animales vulnerables o damnificados en Venezuela.</p>
+                                </div>
+
+                                <div class="popover-section">
+                                    <h5 class="text-[#00c8ff] font-semibold text-sm mb-3 flex items-center gap-2">⚙️ Funciones y Secciones Principales</h5>
+                                    <div class="tech-grid" style="grid-template-columns: 1fr; gap: 12px;">
+                                        <div class="tech-grid-item" style="background: rgba(255, 255, 255, 0.02); padding: 12px; border-radius: 8px; border-left: 3px solid #00c8ff;">
+                                            <span class="tech-grid-name text-white font-semibold text-xs mb-1 block">Telemetría y Monitoreo Sísmico en Tiempo Real</span>
+                                            <span class="tech-grid-desc text-xs text-gray">Integra datos oficiales de FUNVISIS para geolocalizar réplicas y eventos sísmicos recientes, priorizando automáticamente la ayuda hacia las fundaciones y zonas con mayor impacto estructural (como La Guaira, Distrito Capital y Miranda).</span>
+                                        </div>
+                                        <div class="tech-grid-item" style="background: rgba(255, 255, 255, 0.02); padding: 12px; border-radius: 8px; border-left: 3px solid #00ffaa;">
+                                            <span class="tech-grid-name text-white font-semibold text-xs mb-1 block">Coordinación de Insumos Críticos</span>
+                                            <span class="tech-grid-desc text-xs text-gray">Presenta un catálogo de solicitudes activas clasificadas por categorías (Alimento, Medicamentos, Logística y Reconstrucción). Cada solicitud muestra su avance de recolección en tiempo real y permite colaborar directamente.</span>
+                                        </div>
+                                        <div class="tech-grid-item" style="background: rgba(255, 255, 255, 0.02); padding: 12px; border-radius: 8px; border-left: 3px solid #7000ff;">
+                                            <span class="tech-grid-name text-white font-semibold text-xs mb-1 block">Red de Resiliencia y Adopciones</span>
+                                            <span class="tech-grid-desc text-xs text-gray">Mantiene métricas públicas sobre donaciones, animales rescatados y alojados, y facilita procesos de adopción y reportes de alertas de animales en riesgo.</span>
+                                        </div>
+                                        <div class="tech-grid-item" style="background: rgba(255, 255, 255, 0.02); padding: 12px; border-radius: 8px; border-left: 3px solid #ff2a7a;">
+                                            <span class="tech-grid-name text-white font-semibold text-xs mb-1 block">Reporte de Casos de la Comunidad</span>
+                                            <span class="tech-grid-desc text-xs text-gray">Permite registrar solicitudes de ayuda urgentes tanto para desastres específicos como para casos generales de la comunidad.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
