@@ -2596,3 +2596,32 @@ body, html {
     overflow-y: auto;
     flex: 1;
 }
+
+/* Zperanza White Logo with Heartbeat Animation Effect */
+.logo-heart-effect {
+    filter: brightness(0) invert(1);
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: inline-block;
+}
+
+.logo-heart-effect:hover {
+    animation: logoHeartbeat 0.8s infinite;
+}
+
+@keyframes logoHeartbeat {
+    0% {
+        transform: scale(1);
+    }
+    14% {
+        transform: scale(1.08);
+    }
+    28% {
+        transform: scale(1.02);
+    }
+    42% {
+        transform: scale(1.1);
+    }
+    70%, 100% {
+        transform: scale(1);
+    }
+}
